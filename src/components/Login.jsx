@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        BaseURL + "signin",
+        BaseURL + "/signin",
         { email, password },
         { withCredentials: true } // used to save token in cookies
       );

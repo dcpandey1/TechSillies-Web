@@ -2,19 +2,20 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest, removeRequest } from "../utils/requestSlice";
+import { BaseURL } from "../constants/data";
 
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.request);
   const fetchRequests = async () => {
-    const res = await axios.get("http://localhost:3000/user/requests/recieved", { withCredentials: true });
+    const res = await axios.get(BaseURL + "/user/requests/recieved", { withCredentials: true });
     dispatch(addRequest(res?.data?.connectionsRequests));
   };
 
   const reviewRequest = async (status, requestId) => {
     try {
       await axios.post(
-        "http://localhost:3000/review/request/" + status + "/" + requestId,
+        BaseURL + "/review/request/" + status + "/" + requestId,
         {},
         { withCredentials: true }
       );

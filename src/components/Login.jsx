@@ -59,9 +59,12 @@ const Login = () => {
             </label>
           </div>
           <div className="flex justify-center space-x-2">
-            <span>{"New Here?"}</span>
+            <span>{"New to Tech Silles ?"}</span>
             <Link to="/signup">
-              <span> Sign Up</span>
+              <span className="bg-gradient-to-r from-pink-400 to-blue-300 bg-clip-text text-transparent">
+                {" "}
+                Sign Up
+              </span>
             </Link>
           </div>
 

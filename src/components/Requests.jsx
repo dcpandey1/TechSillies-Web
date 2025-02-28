@@ -56,6 +56,7 @@ const Requests = () => {
                       alt="Bonnie Avatar"
                     />
                   </a>
+
                   <div className="p-4">
                     <h3 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
                       <a href="#">{user.fromUserId.firstName + " " + user.fromUserId.lastName}</a>
@@ -69,16 +70,16 @@ const Requests = () => {
                         Expert In {user?.fromUserId.skills?.join(", ")}
                       </p>
                     </div>
-                    <div className="card-actions pt-4">
+                    <div className="card-actions pt-4 flex flex-nowrap gap-4">
                       <button
                         onClick={() => reviewRequest("accept", user._id)}
-                        className="btn bg-pink-800 w-32"
+                        className="btn bg-pink-800 w-24 sm:w-32"
                       >
                         Accept
                       </button>
                       <button
                         onClick={() => reviewRequest("reject", user._id)}
-                        className="btn bg-blue-800 w-32"
+                        className="btn bg-blue-800 w-24 sm:w-32"
                       >
                         Reject
                       </button>

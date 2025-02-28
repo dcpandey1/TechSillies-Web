@@ -101,7 +101,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/connections">Settings</Link>
+                  <Link to="/connections">Connections</Link>
                 </li>
                 <li>
                   <Link to="/requests">Request</Link>

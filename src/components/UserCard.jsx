@@ -26,7 +26,7 @@ const UserCard = ({ user }) => {
         <h2 className="card-title">{firstName + " " + lastName}</h2>
         <p>{about}</p>
         <p>Expert In {skills.join(" ")}</p>
-        <div className="card-actions">
+        <div className="card-actions flex flex-nowrap gap-4">
           <button onClick={() => handleSendRequest("interested", _id)} className="btn bg-pink-800 w-32">
             Interested
           </button>

@@ -10,7 +10,7 @@ const Profile = () => {
   }
   return (
     user && (
-      <div className="flex justify-center mt-0 sm:mt-10">
+      <div className="flex justify-center mt-2 sm:mt-10 mb-10">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full p-8 transition-all duration-300 animate-fade-in">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3 text-center mb-8 md:mb-0">

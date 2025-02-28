@@ -16,20 +16,20 @@ const Footer = () => {
           <Link to="/">
             <button className="flex flex-col items-center text-white hover:text-black">
               <IoHomeOutline />
-              <span className="text-sm text-green-600">Feed</span>
+              <span className="text-sm text-white">Feed</span>
             </button>
           </Link>
           <Link to="/connections">
             <button className="flex flex-col items-center text-white hover:text-black">
               <BsPeople />
-              <span className="text-sm text-green-600">Connections</span>
+              <span className="text-sm text-white">Connections</span>
             </button>
           </Link>
 
           <Link to="/requests">
             <button className="flex flex-col items-center text-white-600 hover:text-black">
               <MdFollowTheSigns />
-              <span className="text-sm text-blue-400">Requests</span>
+              <span className="text-sm text-white">Requests</span>
             </button>
           </Link>
         </div>

@@ -11,6 +11,7 @@ const Connections = () => {
     const res = await axios.get(BaseURL + "/user/myConnections", { withCredentials: true });
     dispatch(addConnection(res.data.connections));
   };
+
   useEffect(() => {
     fetchConnection();
   }, []);
@@ -23,7 +24,7 @@ const Connections = () => {
           </h2>
         </div>
       ) : (
-        <section className="bg-white dark:bg-gray-900 min-h-screen">
+        <section className="bg-white dark:bg-gray-900 min-h-screen mb-10">
           <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-12">
               <h2 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-pink-700  to-blue-700 bg-clip-text text-transparent">
@@ -56,11 +57,14 @@ const Connections = () => {
                     </div>
 
                     <p className="text-sm text-gray-600">
-                      {`Connected on ${new Date(user.updatedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}`}
+                      {user.updatedAt
+                        ? `Connected on ${new Date(Date.parse(user?.updatedAt)).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            timeZone: "UTC",
+                          })}`
+                        : "Connection date unavailable"}
                     </p>
                   </div>
                 </div>

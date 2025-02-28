@@ -13,13 +13,14 @@ const EditProfile = () => {
   const [lastName, setLastName] = useState(user?.user?.lastName);
   const [about, setAbout] = useState(user?.user?.about);
   const [toast, setToast] = useState(false);
+  const [image, setImage] = useState(null);
 
   const editProfile = async () => {
     try {
       const res = await axios.patch(
         BaseURL + "/profile/edit",
-        { firstName, lastName, about },
-        { withCredentials: true }
+        { firstName, lastName, about, image },
+        { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
       );
       console.log("Res Edit ", res);
       dispatch(addUser(res?.data));
@@ -76,6 +77,20 @@ const EditProfile = () => {
                     placeholder="Bio"
                     onChange={(e) => setAbout(e.target.value)}
                   ></textarea>
+                </label>
+              </div>
+
+              <div>
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">Profile Picture</span>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="file-input file-input-bordered w-full max-w-xs"
+                    onChange={(e) => setImage(e.target.files[0])}
+                  />
                 </label>
               </div>
               {/* <div>

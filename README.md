@@ -25,3 +25,11 @@
 front end = "http://51.20.93.64"
 
 Backend = "http://51.20.93.64:3000"
+
+## remaining features
+
+- image edit and profile edit
+- landing page
+- chat
+- show contact number
+- form validation

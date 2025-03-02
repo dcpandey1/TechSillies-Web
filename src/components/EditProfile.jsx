@@ -14,9 +14,30 @@ const EditProfile = () => {
   const [lastName, setLastName] = useState(user?.user?.lastName);
   const [headline, setHeadline] = useState(user?.user?.headline);
   const [about, setAbout] = useState(user?.user?.about);
+  const [skills, setSkills] = useState(user?.user?.skills || ["C++", "HTML"]); // Default skills
+  const [skillInput, setSkillInput] = useState(""); // Input for new skills
+
   const [toast, setToast] = useState(false);
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const addSkill = (e) => {
+    e.preventDefault();
+    const newSkills = skillInput
+      .split(",") // Split by comma
+      .map((skill) => skill.trim()) // Remove extra spaces
+      .filter((skill) => skill && !skills.includes(skill)); // Remove empty or duplicate skills
+
+    if (newSkills.length > 0) {
+      setSkills([...skills, ...newSkills]);
+    }
+    setSkillInput(""); // Clear input after adding
+  };
+
+  // Handle removing a skill
+  const removeSkill = (skillToRemove) => {
+    setSkills(skills.filter((skill) => skill !== skillToRemove));
+  };
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
@@ -47,6 +68,7 @@ const EditProfile = () => {
       formData.append("lastName", lastName);
       formData.append("about", about);
       formData.append("headline", headline);
+      formData.append("skills", skills.join(",")); // Convert array to comma-separated string
       if (image) formData.append("image", image);
 
       const res = await axios.patch(BaseURL + "/profile/edit", formData, {
@@ -125,6 +147,38 @@ const EditProfile = () => {
                     onChange={(e) => setAbout(e.target.value)}
                   ></textarea>
                 </label>
+              </div>
+
+              {/* skills input */}
+              <div>
+                <label className="form-control w-full max-w-xs">
+                  <span className="label-text">Skills</span>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={skillInput}
+                      className="input input-bordered w-full"
+                      placeholder="Add a skill and press Enter"
+                      onChange={(e) => setSkillInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && addSkill(e)}
+                    />
+                    <button className="btn btn-primary" onClick={addSkill} disabled={!skillInput.trim()}>
+                      Add
+                    </button>
+                  </div>
+                </label>
+              </div>
+
+              {/* Skills List (Tags) */}
+              <div className="flex flex-wrap gap-2 mt-2">
+                {skills.map((skill, index) => (
+                  <div key={index} className="badge badge-outline px-3 py-2">
+                    {skill}
+                    <button className="ml-2 text-red-500" onClick={() => removeSkill(skill)}>
+                      ✖
+                    </button>
+                  </div>
+                ))}
               </div>
 
               <div>

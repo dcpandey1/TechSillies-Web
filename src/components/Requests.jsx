@@ -56,7 +56,7 @@ const Requests = () => {
                   <a href="#">
                     <img
                       className=" w-32 sm:w-40 rounded-full object-cover"
-                      src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
+                      src={user.fromUserId.imageURL}
                       alt="Bonnie Avatar"
                     />
                   </a>

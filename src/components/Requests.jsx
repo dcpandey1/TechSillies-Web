@@ -8,8 +8,12 @@ const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.request);
   const fetchRequests = async () => {
-    const res = await axios.get(BaseURL + "/user/requests/recieved", { withCredentials: true });
-    dispatch(addRequest(res?.data?.connectionsRequests));
+    if (requests) {
+      return;
+    } else {
+      const res = await axios.get(BaseURL + "/user/requests/recieved", { withCredentials: true });
+      dispatch(addRequest(res?.data?.connectionsRequests));
+    }
   };
 
   const reviewRequest = async (status, requestId) => {

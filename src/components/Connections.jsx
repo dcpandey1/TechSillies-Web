@@ -8,6 +8,9 @@ const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connection);
   const fetchConnection = async () => {
+    if (connections) {
+      return;
+    }
     const res = await axios.get(BaseURL + "/user/myConnections", { withCredentials: true });
     dispatch(addConnection(res.data.connections));
   };

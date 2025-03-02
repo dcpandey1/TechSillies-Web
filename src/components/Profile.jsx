@@ -22,7 +22,7 @@ const Profile = () => {
               <h1 className="text-2xl font-bold text-indigo-800 dark:text-white mb-2">
                 {user.user.firstName + " " + user.user.lastName}
               </h1>
-              <p className="text-gray-600 dark:text-gray-300">Software Developer</p>
+              <p className="text-gray-600 dark:text-gray-300">{user?.user?.headline}</p>
               <Link to="/editProfile">
                 <button className="mt-4 bg-pink-800 bg-gradient-to-r from-pink-800 to-blue-800 text-white px-4 py-2 rounded-lg transition-colors duration-300">
                   Edit Profile

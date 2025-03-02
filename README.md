@@ -33,3 +33,6 @@ Backend = "http://51.20.93.64:3000"
 - chat
 - show contact number
 - form validation
+- allow user to edit skills tagline
+- user should not see login and signup pages if he is logged in
+- request recieved api is callled again n again

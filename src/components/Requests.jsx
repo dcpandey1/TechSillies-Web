@@ -40,7 +40,7 @@ const Requests = () => {
           </h2>
         </div>
       ) : (
-        <section className="bg-white dark:bg-gray-900 min-h-screen">
+        <section className="bg-gray-900 min-h-screen">
           <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-12">
               <h2 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-pink-700  to-blue-700 bg-clip-text text-transparent">
@@ -51,7 +51,7 @@ const Requests = () => {
               {requests.map((user) => (
                 <div
                   key={user._id}
-                  className="flex items-center bg-gray-50 rounded-lg shadow w-160 mx-auto dark:bg-gray-800 dark:border-gray-700 p-4 sm:p-6"
+                  className="flex items-center  rounded-lg shadow w-160 mx-auto bg-gray-800 border-gray-700 p-4 sm:p-6"
                 >
                   <a href="#">
                     <img
@@ -62,15 +62,13 @@ const Requests = () => {
                   </a>
 
                   <div className="p-4">
-                    <h3 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h3 className="text-lg font-bold tracking-tight">
                       <a href="#">{user.fromUserId.firstName + " " + user.fromUserId.lastName}</a>
                     </h3>
                     {/* <span className="text-sm text-gray-500 dark:text-gray-400">CEO & Web Developer</span> */}
-                    <p className="mt-2 text-sm font-light text-gray-500 dark:text-gray-400">
-                      {user.fromUserId.about}
-                    </p>
+                    <p className="mt-2 text-sm font-light text-gray-400">{user.fromUserId.about}</p>
                     <div className="flex">
-                      <p className="mt-2 text-sm font-light text-gray-500 dark:text-gray-400">
+                      <p className="mt-2 text-sm font-light text-gray-400">
                         Expert In {user?.fromUserId.skills?.join(", ")}
                       </p>
                     </div>

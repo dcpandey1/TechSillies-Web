@@ -8,4 +8,7 @@ export default {
   },
 
   plugins: [daisyui],
+  daisyui: {
+    themes: ["dark"], // Forces dark theme
+  },
 };

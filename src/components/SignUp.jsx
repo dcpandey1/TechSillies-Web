@@ -20,6 +20,10 @@ const SignUp = () => {
   const boyImageURL = "https://res.cloudinary.com/dyu786gc9/image/upload/v1740212450/image_1_nyfgtb.jpg";
   const imageURL = gender === "Female" ? girlImageURL : boyImageURL;
 
+  const handleGoogleSignup = () => {
+    window.location.href = BaseURL + "/auth/google";
+  };
+
   const handleSignUp = async () => {
     try {
       const res = await axios.post(
@@ -47,7 +51,10 @@ const SignUp = () => {
             <h1 className="text-2xl xl:text-3xl font-extrabold text-gray-400">Sign Up</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
-                <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                <button
+                  onClick={handleGoogleSignup}
+                  className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                >
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path

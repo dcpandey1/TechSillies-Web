@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 import { BaseURL } from "../constants/data";
+import { motion } from "framer-motion"; // Importing motion
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -41,9 +42,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen  text-gray-900 flex justify-center m-2">
+    <div className="min-h-screen text-gray-900 flex justify-center m-2">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-gray-800 shadow sm:rounded-lg flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+        <motion.div
+          className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div>
             <img src="https://techsillies.com/assets/ts_logo-B2xY8GeG.svg" className="w-32 mx-auto" />
           </div>
@@ -88,44 +94,60 @@ const SignUp = () => {
               </div>
 
               <div className="mx-auto max-w-xs">
-                <input
+                <motion.input
                   value={firstName}
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                   type="text"
                   placeholder="First Name"
                   onChange={(e) => setFirstName(e.target.value)}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
                 />
-                <input
+                <motion.input
                   value={lastName}
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                   type="text"
                   placeholder="Last Name"
                   onChange={(e) => setLastName(e.target.value)}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
                 />
-                <input
+                <motion.input
                   value={email}
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                   type="email"
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                 />
-                <input
+                <motion.input
                   value={password}
                   className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                   type="password"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
                 />
-                <select
+                <motion.select
                   onChange={(e) => setGender(e.target.value)}
                   className="select select-bordered w-full max-w-xs mt-5 bg-gray-100 border border-gray-200 placeholder-gray-500"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
                 >
                   <option disabled selected>
                     Gender
                   </option>
                   <option>Male</option>
                   <option>Female</option>
-                </select>
+                </motion.select>
+
                 {errorMessage && (
                   <div className="mt-2 flex items-center justify-center bg-red-100 border border-red-400 text-red-800 text-sm font-medium px-4 py-2 rounded-md">
                     <svg className="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewBox="0 0 20 20">
@@ -137,10 +159,13 @@ const SignUp = () => {
                     </svg>
                     {errorMessage}
                   </div>
-                )}{" "}
-                <button
+                )}
+                <motion.button
                   onClick={() => handleSignUp()}
                   className="mt-5 tracking-wide font-semibold bg-blue-900 text-gray-100 w-full py-4 rounded-lg hover:bg-pink-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
                 >
                   <svg
                     className="w-6 h-6 -ml-2"
@@ -155,7 +180,7 @@ const SignUp = () => {
                     <path d="M20 8v6M23 11h-6" />
                   </svg>
                   <span className="ml-3">Sign Up</span>
-                </button>
+                </motion.button>
               </div>
             </div>
           </div>
@@ -168,7 +193,8 @@ const SignUp = () => {
               </span>
             </Link>
           </div>
-        </div>
+        </motion.div>
+
         <div className="flex-1 bg-gradient-to-r from-pink-900 to-blue-900 text-center hidden lg:flex rounded-r-lg">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"

@@ -8,6 +8,8 @@
 - view profile component https://tailwindflex.com/@nejaa-badr/profile-page
 - clodinary dp13
 - aws dp13
+- google auth techsillies
+- rajorpay dp13
 - AWS steps
   - create account
   - goto ec2 to create vm

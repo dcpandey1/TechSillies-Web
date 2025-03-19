@@ -1,10 +1,10 @@
 import axios from "axios";
-
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { BaseURL } from "../constants/data";
+import { motion } from "framer-motion"; // Import motion from framer-motion
 
 const Login = () => {
   const [email, setEmail] = useState("elon@gmail.com");
@@ -47,17 +47,33 @@ const Login = () => {
       console.log(error?.response?.data);
     }
   };
+
   return (
-    <div className="min-h-screen  text-gray-900 flex justify-center m-2">
+    <motion.div
+      className="min-h-screen text-gray-900 flex justify-center m-2"
+      initial={{ opacity: 0 }} // Initial state: completely transparent
+      animate={{ opacity: 1 }} // Animate to fully visible
+      transition={{ duration: 0.5 }} // Animation duration
+    >
       <div className="max-w-screen-xl m-0 sm:m-10 bg-gray-800 shadow sm:rounded-lg flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+        <motion.div
+          className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"
+          initial={{ x: -200 }} // Start from the left
+          animate={{ x: 0 }} // Animate to the normal position
+          transition={{ duration: 0.8 }} // Animation duration
+        >
           <div>
             <img src="https://techsillies.com/assets/ts_logo-B2xY8GeG.svg" className="w-32 mx-auto" />
           </div>
           <div className="mt-6 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold text-gray-400">Sign In</h1>
             <div className="w-full flex-1 mt-8">
-              <div className="flex flex-col items-center">
+              <motion.div
+                className="flex flex-col items-center"
+                initial={{ scale: 0 }} // Initial state: scaled down
+                animate={{ scale: 1 }} // Animate to normal scale
+                transition={{ duration: 0.5 }} // Animation duration
+              >
                 <button
                   onClick={handleGoogleLogin}
                   className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
@@ -84,7 +100,7 @@ const Login = () => {
                   </div>
                   <span className="ml-4">Sign In with Google</span>
                 </button>
-              </div>
+              </motion.div>
 
               <div className="my-12 flex items-center">
                 <div className="flex-1 border-b border-gray-400"></div>
@@ -121,9 +137,11 @@ const Login = () => {
                     {errorMessage}
                   </div>
                 )}
-                <button
+                <motion.button
                   onClick={() => handleLogin()}
                   className="mt-5 tracking-wide font-semibold bg-blue-900 text-gray-100 w-full py-4 rounded-lg hover:bg-pink-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  whileHover={{ scale: 1.05 }} // Add hover scale effect
+                  transition={{ duration: 0.2 }} // Duration for hover effect
                 >
                   <svg
                     className="w-6 h-6 -ml-2"
@@ -138,7 +156,7 @@ const Login = () => {
                     <path d="M20 8v6M23 11h-6" />
                   </svg>
                   <span className="ml-3">Sign In</span>
-                </button>
+                </motion.button>
               </div>
             </div>
           </div>
@@ -151,7 +169,7 @@ const Login = () => {
               </span>
             </Link>
           </div>
-        </div>
+        </motion.div>
         <div className="flex-1 bg-gradient-to-r from-pink-800 to-blue-800 text-center hidden lg:flex rounded-r-lg">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
@@ -162,7 +180,8 @@ const Login = () => {
           ></div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
+
 export default Login;

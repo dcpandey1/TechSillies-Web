@@ -31,11 +31,11 @@ const Body = () => {
   }, []);
   return (
     <>
+      {/* <div className="bg-gradient-to-r from-blue-950 to-pink-950"> */}
       <Navbar />
-      {/* <div className="min-h-screen bg-cover bg-center opacity-50" style={{ backgroundImage: `url(${bg})` }}> */}
       <Outlet />
-      {/* </div> */}
       <Footer />
+      {/* </div> */}
     </>
   );
 };

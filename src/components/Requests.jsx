@@ -63,13 +63,13 @@ const Requests = () => {
 
                   <div className="p-4">
                     <h3 className="text-lg font-bold tracking-tight">
-                      <a href="#">{user.fromUserId.firstName + " " + user.fromUserId.lastName}</a>
+                      <a href="#">{user?.fromUserId?.firstName + " " + user?.fromUserId?.lastName}</a>
                     </h3>
                     {/* <span className="text-sm text-gray-500 dark:text-gray-400">CEO & Web Developer</span> */}
-                    <p className="mt-2 text-sm font-light text-gray-400">{user.fromUserId.about}</p>
+                    <p className="mt-2 text-sm font-light text-gray-400">{user?.fromUserId?.about}</p>
                     <div className="flex">
                       <p className="mt-2 text-sm font-light text-gray-400">
-                        Expert In {user?.fromUserId.skills?.join(", ")}
+                        Expert In {user?.fromUserId?.skills?.join(", ")}
                       </p>
                     </div>
                     <div className="card-actions pt-4 flex flex-nowrap gap-4">

@@ -31,6 +31,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     const isLocalhost = location.hostname === "localhost";
+    console.log("checkking here");
     const baseURL = isLocalhost ? "http://localhost:3000" : "https://techsillies.com/api";
 
     window.location.href = `${baseURL}/auth/google`;

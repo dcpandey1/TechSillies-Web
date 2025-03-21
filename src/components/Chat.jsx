@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
@@ -10,6 +10,8 @@ const Chat = () => {
 
   const user = useSelector((state) => state.user);
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
   const [newMessage, setNewMessage] = useState("");
   const userId = user?.user?._id;
 
@@ -42,13 +44,20 @@ const Chat = () => {
     socket.emit("joinChat", { targetUserId, userId });
 
     socket.on("messageReceived", ({ firstName, text }) => {
-      console.log(firstName, text);
       setMessages((messages) => [...messages, { firstName, text }]);
     });
     return () => {
       socket.disconnect();
     };
   }, [targetUserId, userId]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div className="flex justify-center mt-4">
@@ -70,11 +79,20 @@ const Chat = () => {
               <div
                 key={index}
                 className={"chat " + (user.user.firstName === msg.firstName ? "chat-end" : "chat-start")}
+                ref={index === messages.length - 1 ? messagesEndRef : null}
               >
                 <div className="chat-image avatar"></div>
                 <div className="chat-header">
-                  {msg.firstName}
-                  <time className="text-xs opacity-50">{msg.time}</time>
+                  {/* {msg.firstName} */}
+                  <time className="text-xs opacity-50">
+                    {msg.time && !isNaN(new Date(msg.time).getTime())
+                      ? new Date(msg.time).toLocaleString("en-IN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: true,
+                        })
+                      : ""}
+                  </time>
                 </div>
                 <div
                   className={
@@ -86,7 +104,6 @@ const Chat = () => {
                 >
                   {msg.text}
                 </div>
-                {/* <div className="chat-footer opacity-50">Delivered</div> */}
               </div>
             );
           })}

@@ -8,6 +8,7 @@ import EditProfile from "./components/EditProfile";
 import Requests from "./components/Requests";
 import SignUp from "./components/SignUp";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Body />}>
             <Route path="/" element={<Feed />} />
             <Route path="/policy" element={<PrivacyPolicy />} />
+            <Route path="/chat/:targetUserId" element={<Chat />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />

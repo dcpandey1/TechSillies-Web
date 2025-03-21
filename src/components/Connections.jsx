@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
 import { BaseURL } from "../constants/data";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Connections = () => {
                 Your Connections
               </motion.h2>
             </div>
+
             <motion.div
               className="grid gap-6 lg:gap-8 md:grid-cols-1"
               initial={{ opacity: 0 }}
@@ -75,10 +77,17 @@ const Connections = () => {
                       transition={{ duration: 0.3 }}
                     />
                   </a>
+
                   <div className="p-4">
-                    <h3 className="text-lg font-bold tracking-tight">
-                      <a href="#">{user.firstName + " " + user.lastName}</a>
-                    </h3>
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-sm font-bold tracking-tight">
+                        {user.firstName + " " + user.lastName}
+                      </h3>
+                      <Link to={"/chat/" + user._id}>
+                        <button className="mr-0 btn btn-outline btn-secondary">Chat</button>
+                      </Link>
+                    </div>
+
                     <p className="mt-2 text-sm font-light text-gray-400">{user.about}</p>
                     <div className="flex">
                       <p className="mt-2 text-sm font-light text-gray-400">

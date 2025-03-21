@@ -35,15 +35,15 @@ const Requests = () => {
     <div>
       {!requests || requests.length === 0 ? (
         <div className="flex justify-center mt-10">
-          <h2 className=" text-3xl tracking-tight font-extrabold bg-gradient-to-r from-pink-700  to-blue-700 bg-clip-text text-transparent">
+          <h2 className=" text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">
             You are all caught up !!
           </h2>
         </div>
       ) : (
-        <section className="bg-gray-900 min-h-screen">
+        <section className=" min-h-screen">
           <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-12">
-              <h2 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-pink-700  to-blue-700 bg-clip-text text-transparent">
+              <h2 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">
                 Requests Received
               </h2>
             </div>
@@ -55,9 +55,9 @@ const Requests = () => {
                 >
                   <a href="#">
                     <img
-                      className=" w-32 sm:w-40 rounded-full object-cover"
-                      src={user.fromUserId.imageURL}
-                      alt="Bonnie Avatar"
+                      className="w-32 h-32 sm:w-40 sm:h-40 aspect-square rounded-full object-cover border-white border-2"
+                      src={user?.fromUserId?.imageURL}
+                      alt="Avatar"
                     />
                   </a>
 
@@ -75,7 +75,7 @@ const Requests = () => {
                     <div className="card-actions pt-4 flex flex-nowrap gap-4">
                       <button
                         onClick={() => reviewRequest("accept", user._id)}
-                        className="btn bg-pink-800 w-24 sm:w-32"
+                        className="btn bg-primary w-24 sm:w-32"
                       >
                         Accept
                       </button>

@@ -60,7 +60,7 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <div className="flex justify-center mt-4">
+    <div className="flex justify-center mt-2 sm:mt-16 mb-16 sm:mb-1">
       <div className="w-full max-w-md bg-base-200 rounded-2xl neo-shadow p-4 space-y-4">
         {/* <!-- Chat header --> */}
         <div className="flex items-center space-x-4">
@@ -99,7 +99,7 @@ const Chat = () => {
                     "chat-bubble" +
                     " " +
                     "bg-" +
-                    (user.user.firstName === msg.firstName ? "blue-800" : "pink-800")
+                    (user.user.firstName === msg.firstName ? "secondary" : "primary")
                   }
                 >
                   {msg.text}

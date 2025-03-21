@@ -162,7 +162,7 @@ const SignUp = () => {
                 )}
                 <motion.button
                   onClick={() => handleSignUp()}
-                  className="mt-5 tracking-wide font-semibold bg-blue-900 text-gray-100 w-full py-4 rounded-lg hover:bg-pink-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  className="mt-5 tracking-wide font-semibold bg-secondary text-gray-100 w-full py-4 rounded-lg hover:bg-primary transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.5 }}
@@ -195,7 +195,7 @@ const SignUp = () => {
           </div>
         </motion.div>
 
-        <div className="flex-1 bg-gradient-to-r from-pink-900 to-blue-900 text-center hidden lg:flex rounded-r-lg">
+        <div className="flex-1 bg-gradient-to-r from-primary  to-secondary text-center hidden lg:flex rounded-r-lg">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{

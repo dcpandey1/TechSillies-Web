@@ -1,33 +1,39 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
 import { BaseURL } from "../constants/data";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ShimmerConnections from "./ShimmerConnections";
 
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connection);
+  const [loading, setLoading] = useState(true); // Track loading state
 
   const fetchConnection = async () => {
     if (connections) {
+      setLoading(false);
       return;
     }
     const res = await axios.get(BaseURL + "/user/myConnections", { withCredentials: true });
     dispatch(addConnection(res.data.connections));
+    setTimeout(() => setLoading(false), 800);
   };
 
   useEffect(() => {
     fetchConnection();
-  }, []);
+  }, [connections]);
 
   return (
     <div>
-      {!connections || connections.length === 0 ? (
+      {loading ? (
+        <ShimmerConnections /> // Show shimmer effect while data is loading
+      ) : !connections || connections.length === 0 ? (
         <div className="flex justify-center mt-10">
           <motion.h2
-            className="text-3xl tracking-tight font-extrabold bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent"
+            className="text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
@@ -45,7 +51,7 @@ const Connections = () => {
           <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-12">
               <motion.h2
-                className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent"
+                className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
@@ -70,7 +76,7 @@ const Connections = () => {
                 >
                   <a href="#">
                     <motion.img
-                      className="w-32 h-28 sm:w-40 sm:h-40 rounded-full object-cover"
+                      className="w-32 h-28 sm:w-40 sm:h-40 rounded-full object-cover border-white border-2"
                       src={user.imageURL}
                       alt="Profile"
                       whileHover={{ scale: 1.1 }}
@@ -84,7 +90,9 @@ const Connections = () => {
                         {user.firstName + " " + user.lastName}
                       </h3>
                       <Link to={"/chat/" + user._id}>
-                        <button className="mr-0 btn btn-outline btn-secondary">Chat</button>
+                        <button className="mr-0 btn btn-outline border-primary text-primary hover:bg-primary hover:text-white">
+                          Chat
+                        </button>
                       </Link>
                     </div>
 

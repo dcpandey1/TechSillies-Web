@@ -26,14 +26,14 @@ const UserCard = ({ user }) => {
 
   return (
     <motion.div
-      className="card bg-base-200 w-96 shadow-xl"
+      className="card bg-gray-800 w-96 shadow-xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       {isNewUser && (
         <motion.div
-          className="text-pink-900 badge badge-soft m-4 bg-slate-200"
+          className="text-primary badge badge-soft m-4 bg-slate-200"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.3 }}
@@ -46,7 +46,7 @@ const UserCard = ({ user }) => {
         <motion.img
           src={imageURL}
           alt="Shoes"
-          className="rounded-full w-56 h-56"
+          className="rounded-full w-56 h-56 sm:w-72 sm:h-72 border-white border-2"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.3 }}
         />
@@ -65,7 +65,7 @@ const UserCard = ({ user }) => {
         <div className="card-actions flex flex-nowrap gap-4">
           <motion.button
             onClick={() => handleSendRequest("interested", _id)}
-            className="btn bg-pink-800 w-32"
+            className="btn bg-primary w-32"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
@@ -73,7 +73,7 @@ const UserCard = ({ user }) => {
           </motion.button>
           <motion.button
             onClick={() => handleSendRequest("ignore", _id)}
-            className="btn bg-blue-800 w-32"
+            className="btn bg-secondary w-32"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >

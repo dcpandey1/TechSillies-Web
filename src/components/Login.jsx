@@ -30,7 +30,10 @@ const Login = () => {
   }, [dispatch, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = BaseURL + "/auth/google";
+    const isLocalhost = location.hostname === "localhost";
+    const baseURL = isLocalhost ? "http://localhost:3000" : "https://techsillies.com/api";
+
+    window.location.href = `${baseURL}/auth/google`;
   };
 
   const handleLogin = async () => {
@@ -139,7 +142,7 @@ const Login = () => {
                 )}
                 <motion.button
                   onClick={() => handleLogin()}
-                  className="mt-5 tracking-wide font-semibold bg-blue-900 text-gray-100 w-full py-4 rounded-lg hover:bg-pink-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  className="mt-5 tracking-wide font-semibold bg-secondary text-gray-100 w-full py-4 rounded-lg hover:bg-primary transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   whileHover={{ scale: 1.05 }} // Add hover scale effect
                   transition={{ duration: 0.2 }} // Duration for hover effect
                 >
@@ -170,7 +173,7 @@ const Login = () => {
             </Link>
           </div>
         </motion.div>
-        <div className="flex-1 bg-gradient-to-r from-pink-800 to-blue-800 text-center hidden lg:flex rounded-r-lg">
+        <div className="flex-1 bg-gradient-to-r from-primary  to-secondary text-center hidden lg:flex rounded-r-lg">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{

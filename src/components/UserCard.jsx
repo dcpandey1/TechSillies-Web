@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 /* eslint-disable react/prop-types */
 const UserCard = ({ user }) => {
-  const { _id, firstName, lastName, about, skills, imageURL, createdAt } = user;
+  const { _id, firstName, lastName, about, skills, imageURL, createdAt, gender } = user;
 
   const dispatch = useDispatch();
 
@@ -58,7 +58,7 @@ const UserCard = ({ user }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="card-title">{firstName + " " + lastName}</h2>
+        <h2 className="card-title">{firstName + " " + lastName + (gender ? ", " + gender : "")}</h2>
         <p>{about}</p>
 
         <p>Expert In {skills.join(" ")}</p>

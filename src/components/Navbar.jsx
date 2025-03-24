@@ -9,6 +9,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { MdFollowTheSigns } from "react-icons/md";
 import { removeConnection } from "../utils/connectionSlice";
 import { removeFeed } from "../utils/feedSlice";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
@@ -35,31 +36,41 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-gray-800 shadow-xl px-4">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="navbar bg-gray-800 shadow-xl px-4"
+      >
         {/* Left: Logo */}
         <div className="flex-1">
           <Link to="/">
-            <img className="h-10 sm:h-12" src={logo} alt="Logo" />
+            <motion.img
+              src={logo}
+              alt="Logo"
+              className="h-10 sm:h-12"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.4 }}
+            />
           </Link>
         </div>
 
         {/* Center: Buttons */}
-
         {/* Right: Search + User Info */}
-
         {user && (
-          <div className="hidden md:flex flex-1 justify-center space-x-4 ">
+          <div className="hidden md:flex flex-1 justify-normal space-x-4">
             <Link to="/">
-              <button className="btn w-28">
+              <motion.button whileHover={{ scale: 1.05 }} className="btn w-28">
                 <IoHomeOutline />
                 Feed
-              </button>
+              </motion.button>
             </Link>
             <Link to="/connections">
-              <button className="btn  w-auto">
+              <motion.button whileHover={{ scale: 1.05 }} className="btn w-auto">
                 <BsPeople />
                 Connections
-              </button>
+              </motion.button>
             </Link>
             <Link to="/requests">
               <div className="indicator">
@@ -67,10 +78,10 @@ const Navbar = () => {
                   <span className="indicator-item badge bg-blue-600 mt-1">{requestCount}</span>
                 )}
 
-                <button className="btn ">
+                <motion.button whileHover={{ scale: 1.05 }} className="btn">
                   <MdFollowTheSigns />
                   Requests
-                </button>
+                </motion.button>
               </div>
             </Link>
           </div>
@@ -78,17 +89,30 @@ const Navbar = () => {
 
         {user && (
           <div className="flex-none flex items-center gap-4">
-            <div className="form-control">
-              <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-            </div>
+            {/* User Name */}
+            <motion.p
+              className="sm:block text-base font-semibold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent drop-shadow-lg"
+              initial={{ x: 20 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {firstName}
+            </motion.p>
 
-            <p className="hidden sm:block">{firstName}</p>
+            {/* Avatar Dropdown */}
             <div className="dropdown dropdown-left px-2">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-12 rounded-full border-white border-2">
                   <img alt="User Avatar" src={imageURL} />
                 </div>
-              </div>
+              </motion.div>
 
               <ul
                 tabIndex={0}
@@ -113,7 +137,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </>
   );
 };

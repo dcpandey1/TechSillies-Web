@@ -34,7 +34,7 @@ const Feed = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="text-center">
+        <div className="text-center ">
           <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
             initial={{ scale: 0.8 }}
@@ -44,7 +44,7 @@ const Feed = () => {
             No More Users To Connect !!
           </motion.h2>
           <motion.p
-            className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-500"
+            className="mt-4 text-lg sm:text-xl md:text-4xl text-gray-400 drop-shadow-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.2 }}

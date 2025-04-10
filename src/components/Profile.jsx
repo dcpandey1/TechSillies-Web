@@ -19,7 +19,7 @@ const Profile = () => {
         transition={{ duration: 0.5 }}
       >
         <motion.div
-          className="bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full p-8 transition-all duration-300"
+          className="bg-slate-800 rounded-xl shadow-xl shadow-gray-950 max-w-4xl w-full p-8 transition-all duration-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}

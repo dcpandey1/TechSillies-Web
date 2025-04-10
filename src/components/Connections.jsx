@@ -65,7 +65,7 @@ const Connections = () => {
           transition={{ duration: 1 }}
         >
           <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
-            <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-12">
+            <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-8">
               <motion.h2
                 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                 initial={{ opacity: 0 }}
@@ -85,7 +85,7 @@ const Connections = () => {
               {connections.map((user) => (
                 <motion.div
                   key={user._id}
-                  className="flex items-center rounded-lg shadow w-160 mx-auto bg-gray-800 border-gray-700 p-4 sm:p-6"
+                  className="flex items-center rounded-lg shadow-xl shadow-gray-950 w-160 mx-auto bg-slate-800 border-slate-800 p-4 sm:p-6"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -106,7 +106,7 @@ const Connections = () => {
                         {user.firstName + " " + user.lastName}
                       </h3>
                       <Link to={"/chat/" + user._id}>
-                        <button className="mr-0 btn btn-outline border-primary text-primary hover:bg-primary hover:text-white">
+                        <button className="mr-0 btn btn-outline border-primary text-gray-300 bg-primary hover:text-white">
                           Chat
                         </button>
                       </Link>

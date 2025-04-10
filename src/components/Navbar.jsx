@@ -40,7 +40,7 @@ const Navbar = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="navbar bg-gray-800 shadow-xl px-4"
+        className="navbar bg-slate-800 shadow-xl shadow-gray-900 px-4"
       >
         {/* Left: Logo */}
         <div className="flex-1">
@@ -121,7 +121,7 @@ const Navbar = () => {
                 <li>
                   <Link to="/profile" className="justify-between">
                     Profile
-                    <span className="badge bg-pink-800">New</span>
+                    <span className="badge bg-primary">Edit</span>
                   </Link>
                 </li>
                 <li>

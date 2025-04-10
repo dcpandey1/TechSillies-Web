@@ -54,7 +54,7 @@ const Requests = () => {
               You are all caught up !!
             </motion.h2>
             <motion.p
-              className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-500"
+              className="mt-4 text-lg sm:text-xl md:text-4xl text-gray-400"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
@@ -66,7 +66,7 @@ const Requests = () => {
       ) : (
         <section className="min-h-screen">
           <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
-            <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-12">
+            <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-8">
               <h2 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Requests Received
               </h2>
@@ -75,7 +75,7 @@ const Requests = () => {
               {requests.map((user) => (
                 <div
                   key={user._id}
-                  className="flex items-center rounded-lg shadow w-160 mx-auto bg-gray-800 border-gray-700 p-4 sm:p-6"
+                  className="flex items-center rounded-lg shadow-xl shadow-gray-950 w-160 mx-auto bg-slate-800 border-gray-700 p-4 sm:p-6"
                 >
                   <a href="#">
                     <img

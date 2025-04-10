@@ -26,7 +26,7 @@ const UserCard = ({ user }) => {
 
   return (
     <motion.div
-      className="card bg-gray-800 w-96 shadow-xl"
+      className="card bg-slate-800 w-96 shadow-xl shadow-gray-950"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

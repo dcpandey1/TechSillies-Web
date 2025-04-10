@@ -93,7 +93,7 @@ const EditProfile = () => {
     <>
       <div>
         <div className="flex justify-center my-10 mx-6 z-20">
-          <div className="card w-96 shadow-xl bg-gray-800">
+          <div className="card w-96 shadow-xl bg-slate-800">
             <div className="card-body">
               <h1 className="card-title justify-center">Edit Profile</h1>
               <div>

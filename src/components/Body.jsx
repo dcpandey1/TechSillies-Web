@@ -4,39 +4,73 @@ import Navbar from "./Navbar";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BaseURL } from "../constants/data";
-// import bg from "../assests/bg.svg";
+import * as THREE from "three";
+import RINGS from "vanta/dist/vanta.rings.min";
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
+
+  const vantaRef = useRef(null);
+  const [vantaEffect, setVantaEffect] = useState(null);
+
   const fetchUser = async () => {
     if (userData) {
       return;
     }
     try {
-      const res = await axios.get(BaseURL + "/profile/view", {}, { withCredentials: true });
+      const res = await axios.get(BaseURL + "/profile/view", { withCredentials: true });
       dispatch(addUser(res.data));
     } catch (error) {
-      if (error.status) {
+      if (error?.response?.status) {
         navigate("/login");
       }
       console.log("Error :" + error);
     }
   };
+
   useEffect(() => {
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    if (!vantaEffect) {
+      setVantaEffect(
+        RINGS({
+          el: vantaRef.current,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          scale: 1.0,
+          scaleMobile: 1.0,
+          backgroundColor: 0x162028,
+          color: 0xaf0561,
+        })
+      );
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [vantaEffect]);
+
   return (
-    <>
-      {/* <div className="bg-gradient-to-r from-blue-950 to-pink-950"> */}
-      <Navbar />
-      <Outlet />
-      <Footer />
-      {/* </div> */}
-    </>
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Background */}
+      <div ref={vantaRef} className="fixed top-0 left-0 w-full h-full -z-10"></div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        <Navbar />
+        <Outlet />
+        <Footer />
+      </div>
+    </div>
   );
 };
 

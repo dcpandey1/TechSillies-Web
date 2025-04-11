@@ -44,16 +44,14 @@ const Navbar = () => {
       >
         {/* Left: Logo */}
         <div className="flex-1">
-          <Link to="/">
-            <motion.img
-              src={logo}
-              alt="Logo"
-              className="h-10 sm:h-12"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.4 }}
-            />
-          </Link>
+          <motion.img
+            src={logo}
+            alt="Logo"
+            className="h-10 sm:h-12"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.4 }}
+          />
         </div>
 
         {/* Center: Buttons */}
@@ -109,7 +107,7 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-12 rounded-full border-white border-2">
+                <div className="w-12 rounded-full border-gray-500 border-2">
                   <img alt="User Avatar" src={imageURL} />
                 </div>
               </motion.div>

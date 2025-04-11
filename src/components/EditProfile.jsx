@@ -17,11 +17,11 @@ const EditProfile = () => {
   const [skills, setSkills] = useState(user?.user?.skills || ["C++", "HTML"]);
   const [skillInput, setSkillInput] = useState("");
   const [toast, setToast] = useState(false);
-  const [image, setImage] = useState(null); // Store the File object for upload
-  const [imagePreview, setImagePreview] = useState(""); // Store the preview URL
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); // Added error state
 
-  // Initialize imagePreview with the user's current profile image
   useEffect(() => {
     if (user?.user?.imageURL) {
       setImagePreview(user.user.imageURL);
@@ -51,6 +51,7 @@ const EditProfile = () => {
 
     try {
       setLoading(true);
+      setError(""); // Clear previous errors
       const options = {
         maxSizeMB: 1,
         maxWidthOrHeight: 500,
@@ -59,12 +60,12 @@ const EditProfile = () => {
 
       const compressedFile = await imageCompression(file, options);
       setImage(compressedFile);
-      // Create a preview URL for the compressed image
       const previewUrl = URL.createObjectURL(compressedFile);
       setImagePreview(previewUrl);
-      setLoading(false);
     } catch (error) {
       console.error("Error compressing image:", error);
+      setError("Failed to compress image. Please try again.");
+    } finally {
       setLoading(false);
     }
   };
@@ -73,6 +74,7 @@ const EditProfile = () => {
     e.preventDefault();
     try {
       setLoading(true);
+      setError(""); // Clear previous errors
       const formData = new FormData();
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
@@ -93,13 +95,16 @@ const EditProfile = () => {
         navigate("/profile");
       }, 1000);
     } catch (error) {
-      console.log("Error: " + error.message);
+      console.error("Error updating profile:", error);
+      setError(
+        error.response?.data || // Backend-specific error
+          "Failed to save profile. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  // Cleanup preview URL to prevent memory leaks
   useEffect(() => {
     return () => {
       if (imagePreview && imagePreview.startsWith("blob:")) {
@@ -117,7 +122,7 @@ const EditProfile = () => {
               {/* Profile Image */}
               <div className="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat">
                 <div
-                  className="w-full h-full rounded-full border-2 border-blue-500"
+                  className="w-full h-full rounded-full border-2 border-gray-500"
                   style={{
                     backgroundImage: `url(${imagePreview || "https://via.placeholder.com/150"})`,
                     backgroundSize: "cover",
@@ -159,6 +164,9 @@ const EditProfile = () => {
                 </div>
               </div>
               <h2 className="text-center mt-1 font-semibold text-gray-300">Upload Profile Image</h2>
+
+              {/* Error Message */}
+              {error && <div className="text-center mt-2 text-pink-700">{error}</div>}
 
               {/* First Name and Last Name */}
               <div className="flex flex-col lg:flex-row gap-2 justify-center w-full">
@@ -242,8 +250,8 @@ const EditProfile = () => {
               </div>
 
               {/* Submit Button */}
-              <div className="w-1/3 mx-auto rounded-lg bg-pink-800 mt-4 text-white text-lg font-semibold ">
-                <button type="submit" className=" p-4 flex justify-center mx-auto" disabled={loading}>
+              <div className="w-1/2 sm:w-1/3 mx-auto rounded-lg bg-pink-800 mt-4 text-white text-lg font-semibold">
+                <button type="submit" className="p-4 flex justify-center mx-auto" disabled={loading}>
                   {loading ? <span className="loading loading-spinner text-white"></span> : "Save Profile"}
                 </button>
               </div>

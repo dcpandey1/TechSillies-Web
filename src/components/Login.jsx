@@ -174,7 +174,7 @@ const Login = () => {
             </Link>
           </div>
         </motion.div>
-        <div className="flex-1 bg-gradient-to-r from-primary  to-secondary text-center hidden lg:flex rounded-r-lg">
+        <div className="flex-1 bg-gradient-to-r from-primary/70  to-secondary/70 text-center hidden lg:flex rounded-r-lg">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{

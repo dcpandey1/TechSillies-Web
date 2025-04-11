@@ -92,7 +92,7 @@ const Connections = () => {
                 >
                   <a href="#">
                     <motion.img
-                      className="w-32 h-28 sm:w-40 sm:h-40 rounded-full object-cover border-white border-2"
+                      className="w-28 h-28 sm:w-40 sm:h-40 rounded-full object-cover border-gray-500 border-2"
                       src={user.imageURL}
                       alt="Profile"
                       whileHover={{ scale: 1.1 }}

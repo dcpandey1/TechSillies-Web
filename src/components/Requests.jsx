@@ -78,11 +78,13 @@ const Requests = () => {
                   className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-160 mx-auto bg-slate-800/20 backdrop-blur-sm border-gray-700 p-4 sm:p-6"
                 >
                   <a href="#">
-                    <img
-                      className="w-32 h-32 sm:w-40 sm:h-40 aspect-square rounded-full object-cover border-white border-2"
-                      src={user?.fromUserId?.imageURL}
-                      alt="Avatar"
-                    />
+                    <div className="w-28 h-28 sm:w-40 sm:h-40 aspect-square rounded-full overflow-hidden border-2 border-gray-500">
+                      <img
+                        className="w-full h-full object-cover"
+                        src={user?.fromUserId?.imageURL}
+                        alt="Avatar"
+                      />
+                    </div>
                   </a>
 
                   <div className="p-4">
@@ -98,13 +100,13 @@ const Requests = () => {
                     <div className="card-actions pt-4 flex flex-nowrap gap-4">
                       <button
                         onClick={() => reviewRequest("accept", user._id)}
-                        className="btn bg-primary w-24 sm:w-32"
+                        className="btn bg-primary w-20 sm:w-32"
                       >
                         Accept
                       </button>
                       <button
                         onClick={() => reviewRequest("reject", user._id)}
-                        className="btn bg-blue-800 w-24 sm:w-32"
+                        className="btn bg-blue-800 w-20 sm:w-32"
                       >
                         Reject
                       </button>

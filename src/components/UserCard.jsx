@@ -46,7 +46,7 @@ const UserCard = ({ user }) => {
         <motion.img
           src={imageURL}
           alt="Shoes"
-          className="rounded-full w-56 h-56 sm:w-72 sm:h-72 border-white border-2"
+          className="rounded-full w-56 h-56 sm:w-72 sm:h-72 border-gray-400 border-2"
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.3 }}
         />

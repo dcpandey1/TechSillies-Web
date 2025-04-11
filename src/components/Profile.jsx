@@ -34,7 +34,7 @@ const Profile = () => {
               <motion.img
                 src={user.user.imageURL}
                 alt="Profile Picture"
-                className="rounded-full w-44 h-44 mx-auto mb-4 border-4 border-blue-900 transition-transform duration-300 hover:scale-105"
+                className="rounded-full w-44 h-44 mx-auto mb-4 border-2 border-gray-500 transition-transform duration-300 hover:scale-105"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               />

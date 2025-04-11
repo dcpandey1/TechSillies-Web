@@ -85,7 +85,7 @@ const Connections = () => {
               {connections.map((user) => (
                 <motion.div
                   key={user._id}
-                  className="flex items-center rounded-lg shadow-xl shadow-gray-950 w-160 mx-auto bg-slate-800 border-slate-800 p-4 sm:p-6"
+                  className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-[360px] sm:w-[450px] mx-auto bg-slate-800/20 backdrop-blur-sm border-slate-800 p-4 sm:p-6"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -112,13 +112,13 @@ const Connections = () => {
                       </Link>
                     </div>
 
-                    <p className="mt-2 text-sm font-light text-gray-400">{user.about}</p>
+                    <p className="mt-2 text-sm font-light text-gray-400 text-wrap">{user.about}</p>
                     <div className="flex">
                       <p className="mt-2 text-sm font-light text-gray-400">
                         Expert In {user?.skills?.join(", ")}
                       </p>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 text-wrap">
                       {user.updatedAt
                         ? `Connected on ${new Date(Date.parse(user?.updatedAt)).toLocaleDateString("en-US", {
                             year: "numeric",

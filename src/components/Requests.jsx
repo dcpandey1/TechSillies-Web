@@ -75,7 +75,7 @@ const Requests = () => {
               {requests.map((user) => (
                 <div
                   key={user._id}
-                  className="flex items-center rounded-lg shadow-xl shadow-gray-950 w-160 mx-auto bg-slate-800 border-gray-700 p-4 sm:p-6"
+                  className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-160 mx-auto bg-slate-800/20 backdrop-blur-sm border-gray-700 p-4 sm:p-6"
                 >
                   <a href="#">
                     <img

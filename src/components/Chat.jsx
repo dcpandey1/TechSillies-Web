@@ -61,7 +61,7 @@ const Chat = () => {
 
   return (
     <div className="flex justify-center mt-2 sm:mt-16 mb-16 sm:mb-1">
-      <div className="w-full max-w-md bg-slate-800 shadow-xl shadow-gray-950 rounded-2xl neo-shadow p-4 space-y-4">
+      <div className="w-full max-w-md bg-slate-800/20 backdrop-blur-sm shadow-xl shadow-gray-950 rounded-2xl neo-shadow p-4 space-y-4">
         {/* <!-- Chat header --> */}
         <div className="flex items-center space-x-4">
           <div className="w-12 h-12 rounded-full neo-shadow flex items-center justify-center">
@@ -71,7 +71,7 @@ const Chat = () => {
         </div>
 
         {/* <!-- Chat messages area --> */}
-        <div className="h-96 overflow-y-auto neo-inset p-4 rounded-xl space-y-4 bg-gradient-to-r from-blue-900 to-pink-900 ">
+        <div className="h-96 overflow-y-auto neo-inset p-4 rounded-xl space-y-4 bg-gradient-to-r from-blue-900/50 to-pink-900/50 ">
           {/* <!-- Received message --> */}
 
           {messages.map((msg, index) => {

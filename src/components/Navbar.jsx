@@ -40,7 +40,7 @@ const Navbar = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="navbar bg-slate-800 shadow-xl shadow-gray-900 px-4"
+        className="navbar bg-gray-800/70 shadow-xl shadow-gray-900 px-4"
       >
         {/* Left: Logo */}
         <div className="flex-1">

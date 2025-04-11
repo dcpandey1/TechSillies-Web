@@ -43,7 +43,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen text-gray-900 flex justify-center m-2">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-slate-800 shadow sm:rounded-lg flex justify-center flex-1">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-slate-800/20 backdrop-blur-sm shadow sm:rounded-lg flex justify-center flex-1">
         <motion.div
           className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"
           initial={{ opacity: 0, y: -50 }}

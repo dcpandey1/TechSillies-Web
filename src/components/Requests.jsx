@@ -45,6 +45,11 @@ const Requests = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="text-center">
+            <motion.img
+              src="https://www.animatedimages.org/data/media/202/animated-dog-image-0712.gif"
+              alt="Dog waiting for new users"
+              className="w-48 h-48 sm:w-64 sm:h-64 object-contain mb-4 mx-auto block"
+            />
             <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
               initial={{ scale: 0.8 }}
@@ -54,7 +59,7 @@ const Requests = () => {
               You are all caught up !!
             </motion.h2>
             <motion.p
-              className="mt-4 text-lg sm:text-xl md:text-4xl text-gray-400"
+              className="mt-4 text-lg sm:text-xl md:text-4xl text-gray-400 text-shadow-lg text-shadow-blue-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}

@@ -19,7 +19,7 @@ const Profile = () => {
         transition={{ duration: 0.5 }}
       >
         <motion.div
-          className="bg-slate-800/20 backdrop-blur-sm rounded-xl shadow-xl shadow-gray-950 max-w-4xl w-full p-8 transition-all duration-300"
+          className="bg-slate-800/20 backdrop-blur-sm rounded-xl shadow-xl shadow-gray-950 max-w-3xl w-full p-8 transition-all duration-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
@@ -32,14 +32,14 @@ const Profile = () => {
               transition={{ duration: 0.5 }}
             >
               <motion.img
-                src={user.user.imageURL}
+                src={user?.user?.imageURL}
                 alt="Profile Picture"
                 className="rounded-full w-44 h-44 mx-auto mb-4 border-2 border-gray-500 transition-transform duration-300 hover:scale-105"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               />
               <h1 className="text-2xl font-bold text-white mb-2">
-                {user.user.firstName + " " + user.user.lastName}
+                {user.user.firstName + " " + user?.user?.lastName}
               </h1>
               <p className="text-gray-300">{user?.user?.headline}</p>
               <Link to="/editProfile">
@@ -72,7 +72,7 @@ const Profile = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.5 }}
               >
-                {user.user.about}
+                {user?.user?.about}
               </motion.p>
               <motion.h2
                 className="text-xl font-semibold mb-4"
@@ -123,7 +123,7 @@ const Profile = () => {
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                   </svg>
-                  {user.user.email}
+                  {user?.user?.email}
                 </motion.li>
               </motion.ul>
             </motion.div>

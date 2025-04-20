@@ -6,8 +6,8 @@ import axios from "axios";
 import { BaseURL } from "../constants/data";
 
 const Chat = () => {
-  const targetUserId = useParams();
-
+  const { targetUserId } = useParams();
+  console.log(targetUserId); // Log the targetUserId to the console for debuggin
   const user = useSelector((state) => state.user);
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);

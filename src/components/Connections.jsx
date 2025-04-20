@@ -64,7 +64,7 @@ const Connections = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
+          <div className="py-8 px-auto mx-auto lg:py-12 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-8">
               <motion.h2
                 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
@@ -85,41 +85,43 @@ const Connections = () => {
               {connections.map((user) => (
                 <motion.div
                   key={user._id}
-                  className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-[360px] sm:w-[450px] mx-auto bg-slate-800/20 backdrop-blur-sm border-slate-800 p-4 sm:p-6"
+                  className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-[360px] sm:w-[450px] mx-auto bg-slate-800/20 backdrop-blur-sm border-slate-800 p-4 sm:p-6 "
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
                   <a href="#">
-                    <motion.img
-                      className="w-28 h-28 sm:w-40 sm:h-40 rounded-full object-cover border-gray-500 border-2"
-                      src={user.imageURL}
-                      alt="Profile"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.3 }}
-                    />
+                    <div className="w-28 h-28 sm:w-40 sm:h-40 aspect-square rounded-full overflow-hidden border-2 border-gray-500 flex-shrink-0">
+                      <motion.img
+                        className="w-full h-full object-cover"
+                        src={user?.imageURL}
+                        alt="Profile"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
                   </a>
 
                   <div className="p-4">
                     <div className="flex justify-between items-center">
                       <h3 className="text-sm font-bold tracking-tight">
-                        {user.firstName + " " + user.lastName}
+                        {user?.firstName + " " + user?.lastName}
                       </h3>
                       <Link to={"/chat/" + user._id}>
-                        <button className="mr-0 btn btn-outline border-primary text-gray-300 bg-primary hover:text-white">
+                        <button className="mr-0 btn   text-gray-300 bg-gradient-to-r from-primary to-secondary hover:text-white">
                           Chat
                         </button>
                       </Link>
                     </div>
 
-                    <p className="mt-2 text-sm font-light text-gray-400 text-wrap">{user.about}</p>
+                    <p className="mt-2 text-sm font-light text-gray-400 text-wrap">{user?.about}</p>
                     <div className="flex">
                       <p className="mt-2 text-sm font-light text-gray-400">
                         Expert In {user?.skills?.join(", ")}
                       </p>
                     </div>
                     <p className="text-sm text-gray-600 text-wrap">
-                      {user.updatedAt
+                      {user?.updatedAt
                         ? `Connected on ${new Date(Date.parse(user?.updatedAt)).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "long",

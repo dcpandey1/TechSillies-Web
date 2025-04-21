@@ -7,7 +7,7 @@ import { BaseURL } from "../constants/data";
 
 const Chat = () => {
   const { targetUserId } = useParams();
-  console.log(targetUserId); // Log the targetUserId to the console for debuggin
+  const [targetUser, setTargetUser] = useState(null);
   const user = useSelector((state) => state.user);
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
@@ -15,9 +15,23 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const userId = user?.user?._id;
 
+  const fetchTargetUser = async () => {
+    try {
+      const res = await axios.post(
+        `${BaseURL}/profile/chat`,
+        { targetId: targetUserId },
+        { withCredentials: true }
+      );
+
+      console.log(res.data.targetUser);
+      setTargetUser(res.data.targetUser);
+    } catch (err) {
+      console.error("Failed to fetch target user:", err.message);
+    }
+  };
+
   const fetchMessages = async () => {
     const res = await axios.get(BaseURL + "/chat/" + targetUserId, { withCredentials: true });
-    console.log(res);
     const chatMessages = res?.data?.message?.map((msg) => {
       return {
         firstName: msg?.senderId?.firstName,
@@ -26,12 +40,12 @@ const Chat = () => {
         time: msg?.createdAt,
       };
     });
-    console.log(chatMessages);
     setMessages(chatMessages);
   };
 
   useEffect(() => {
     fetchMessages();
+    fetchTargetUser();
   }, []);
 
   const sendMessage = () => {
@@ -64,10 +78,25 @@ const Chat = () => {
       <div className="w-full max-w-md bg-slate-800/20 backdrop-blur-sm shadow-xl shadow-gray-950 rounded-2xl neo-shadow p-4 space-y-4">
         {/* <!-- Chat header --> */}
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 rounded-full neo-shadow flex items-center justify-center">
-            <span className="text-xl font-semibold text-gray-400 ">DP</span>
+          <div className="flex items-center space-x-4">
+            {targetUser ? (
+              <>
+                <img
+                  src={targetUser.imageURL}
+                  alt="Profile"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-gray-500"
+                />
+                <h1 className="text-xl font-bold text-gray-400">
+                  {targetUser.firstName} {targetUser.lastName}
+                </h1>
+              </>
+            ) : (
+              <>
+                <div className="w-12 h-12 rounded-full bg-gray-600 animate-pulse" />
+                <h1 className="text-xl font-bold text-gray-500 animate-pulse">Loading...</h1>
+              </>
+            )}
           </div>
-          <h1 className="text-xl font-bold text-gray-400 "></h1>
         </div>
 
         {/* <!-- Chat messages area --> */}
@@ -117,7 +146,13 @@ const Chat = () => {
               value={newMessage}
               type="text"
               placeholder="Type your message..."
-              className="w-full p-4 rounded-xl neo-inset bg-transparent text-gray-700  placeholder-gray-500  focus:outline-none"
+              className="w-full p-4 rounded-xl neo-inset bg-transparent text-gray-700 placeholder-gray-500 focus:outline-none"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && newMessage.trim() !== "") {
+                  sendMessage();
+                  setNewMessage("");
+                }
+              }}
             />
           </div>
           <button

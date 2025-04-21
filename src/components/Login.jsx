@@ -7,8 +7,8 @@ import { BaseURL } from "../constants/data";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 
 const Login = () => {
-  const [email, setEmail] = useState("elon@gmail.com");
-  const [password, setPassword] = useState("Elon@87955");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");

@@ -58,7 +58,9 @@ const UserCard = ({ user }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="card-title">{firstName + " " + lastName + (gender ? ", " + gender : "")}</h2>
+        <h2 className="card-title">
+          {firstName + " " + (lastName ? lastName : "") + (gender ? ", " + gender : "")}
+        </h2>
         <p>{about}</p>
 
         <p>Expert In {skills.join(" ")}</p>

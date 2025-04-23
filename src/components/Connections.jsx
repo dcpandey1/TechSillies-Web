@@ -105,7 +105,7 @@ const Connections = () => {
                   <div className="p-4">
                     <div className="flex justify-between items-center">
                       <h3 className="text-sm font-bold tracking-tight">
-                        {user?.firstName + " " + user?.lastName}
+                        {user?.firstName + " " + (user?.lastName ? user?.lastName : "")}
                       </h3>
                       <Link to={"/chat/" + user._id}>
                         <button className="mr-0 btn   text-gray-300 bg-gradient-to-r from-primary to-secondary hover:text-white">

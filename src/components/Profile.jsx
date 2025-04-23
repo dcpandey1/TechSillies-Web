@@ -39,7 +39,7 @@ const Profile = () => {
                 transition={{ duration: 0.3 }}
               />
               <h1 className="text-2xl font-bold text-white mb-2">
-                {user.user.firstName + " " + user?.user?.lastName}
+                {user.user.firstName + " " + (user?.user?.lastName ? user?.user?.lastName : "")}
               </h1>
               <p className="text-gray-300">{user?.user?.headline}</p>
               <Link to="/editProfile">

@@ -94,11 +94,15 @@ const Requests = () => {
 
                   <div className="p-4">
                     <h3 className="text-lg font-bold tracking-tight">
-                      <a href="#">{user?.fromUserId?.firstName + " " + user?.fromUserId?.lastName}</a>
+                      <a href="#">
+                        {user?.fromUserId?.firstName +
+                          " " +
+                          (user?.fromUserId?.lastName ? user?.fromUserId?.lastName : "")}
+                      </a>
                     </h3>
                     <p className="mt-2 text-sm font-light text-gray-400">{user?.fromUserId?.about}</p>
-                    <div className="flex">
-                      <p className="mt-2 text-sm font-light text-gray-400">
+                    <div className="flex flex-wrap max-w-[200px]">
+                      <p className="mt-2 text-sm font-light text-gray-400 break-words">
                         Expert In {user?.fromUserId?.skills?.join(", ")}
                       </p>
                     </div>

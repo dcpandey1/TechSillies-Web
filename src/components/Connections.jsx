@@ -84,7 +84,7 @@ const Connections = () => {
             >
               {connections.map((user) => (
                 <motion.div
-                  key={user._id}
+                  key={user?._id}
                   className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-[360px] sm:w-[450px] mx-auto bg-slate-800/20 backdrop-blur-sm border-slate-800 p-4 sm:p-6 "
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ const Connections = () => {
                       <h3 className="text-sm font-bold tracking-tight">
                         {user?.firstName + " " + (user?.lastName ? user?.lastName : "")}
                       </h3>
-                      <Link to={"/chat/" + user._id}>
+                      <Link to={"/chat/" + user?._id}>
                         <button className="mr-0 btn   text-gray-300 bg-gradient-to-r from-primary to-secondary hover:text-white">
                           Chat
                         </button>

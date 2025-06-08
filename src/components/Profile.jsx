@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
+import { BaseURL } from "../constants/data";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -32,7 +33,7 @@ const Profile = () => {
           setShowScanner(false);
 
           // Send QR data to backend
-          fetch("http://localhost:3000/profile/verify-aadhaar-qr", {
+          fetch(BaseURL + "/profile/verify-aadhaar-qr", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

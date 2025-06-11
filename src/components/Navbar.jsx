@@ -57,7 +57,7 @@ const Navbar = () => {
         {/* Center: Buttons */}
         {/* Right: Search + User Info */}
         {user && (
-          <div className="hidden md:flex flex-1 justify-normal space-x-4">
+          <div className="hidden md:flex flex-1 justify-start space-x-4">
             <Link to="/">
               <motion.button whileHover={{ scale: 1.05 }} className="btn w-28">
                 <IoHomeOutline />
@@ -81,6 +81,12 @@ const Navbar = () => {
                   Requests
                 </motion.button>
               </div>
+            </Link>
+            <Link to="/blogs">
+              <motion.button whileHover={{ scale: 1.05 }} className="btn w-auto">
+                <BsPeople />
+                Blogs
+              </motion.button>
             </Link>
           </div>
         )}

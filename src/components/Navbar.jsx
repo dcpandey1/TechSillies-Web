@@ -40,7 +40,7 @@ const Navbar = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="navbar bg-gray-800/70 shadow-xl shadow-gray-900 px-4"
+        className="navbar bg-gray-900 shadow-xl  px-4"
       >
         {/* Left: Logo */}
         <div className="flex-1">
@@ -59,13 +59,19 @@ const Navbar = () => {
         {user && (
           <div className="hidden md:flex flex-1 justify-start space-x-4">
             <Link to="/">
-              <motion.button whileHover={{ scale: 1.05 }} className="btn w-28">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                className="btn w-28 bg-white bg-opacity-0 backdrop-filter"
+              >
                 <IoHomeOutline />
                 Feed
               </motion.button>
             </Link>
             <Link to="/connections">
-              <motion.button whileHover={{ scale: 1.05 }} className="btn w-auto">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                className="btn w-auto bg-white bg-opacity-0 backdrop-filter"
+              >
                 <BsPeople />
                 Connections
               </motion.button>
@@ -76,14 +82,14 @@ const Navbar = () => {
                   <span className="indicator-item badge bg-blue-600 mt-1">{requestCount}</span>
                 )}
 
-                <motion.button whileHover={{ scale: 1.05 }} className="btn">
+                <motion.button whileHover={{ scale: 1.05 }} className="btn bg-white bg-opacity-0">
                   <MdFollowTheSigns />
                   Requests
                 </motion.button>
               </div>
             </Link>
             <Link to="/blogs">
-              <motion.button whileHover={{ scale: 1.05 }} className="btn w-auto">
+              <motion.button whileHover={{ scale: 1.05 }} className="btn w-auto bg-white bg-opacity-0">
                 <BsPeople />
                 Blogs
               </motion.button>
@@ -120,7 +126,7 @@ const Navbar = () => {
 
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] ml-2 mt-10 sm:mt-10 w-52 shadow"
+                className="menu menu-sm dropdown-content bg-slate-800 rounded-box z-[1] ml-2 mt-10 sm:mt-10 w-52 shadow"
               >
                 <li>
                   <Link to="/profile" className="justify-between">

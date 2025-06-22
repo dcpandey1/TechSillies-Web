@@ -10,11 +10,12 @@ const Requests = () => {
   const requests = useSelector((store) => store.request);
 
   const fetchRequests = async () => {
-    if (requests) {
-      return;
-    } else {
+    if (requests) return;
+    try {
       const res = await axios.get(BaseURL + "/user/requests/recieved", { withCredentials: true });
       dispatch(addRequest(res?.data?.connectionsRequests));
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -49,6 +50,9 @@ const Requests = () => {
               src="https://www.animatedimages.org/data/media/202/animated-dog-image-0712.gif"
               alt="Dog waiting for new users"
               className="w-48 h-48 sm:w-64 sm:h-64 object-contain mb-4 mx-auto block"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
             />
             <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
@@ -69,36 +73,57 @@ const Requests = () => {
           </div>
         </motion.div>
       ) : (
-        <section className="min-h-screen">
+        <motion.section
+          className="min-h-screen"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
-            <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-8">
+            <motion.div
+              className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
               <h2 className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Requests Received
               </h2>
-            </div>
-            <div className="grid gap-6 lg:gap-8 md:grid-cols-1">
+            </motion.div>
+
+            <motion.div
+              className="grid gap-6 lg:gap-8 md:grid-cols-1"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: { transition: { staggerChildren: 0.2 } },
+              }}
+            >
               {requests.map((user) => (
-                <div
+                <motion.div
                   key={user._id}
                   className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-160 mx-auto bg-slate-800/20 backdrop-blur-sm border-gray-700 p-4 sm:p-6"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
                 >
                   <a href="#">
                     <div className="w-28 h-28 sm:w-40 sm:h-40 aspect-square rounded-full overflow-hidden border-2 border-gray-500">
-                      <img
+                      <motion.img
                         className="w-full h-full object-cover"
                         src={user?.fromUserId?.imageURL}
                         alt="Avatar"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
                       />
                     </div>
                   </a>
 
                   <div className="p-4">
                     <h3 className="text-lg font-bold tracking-tight">
-                      <a href="#">
-                        {user?.fromUserId?.firstName +
-                          " " +
-                          (user?.fromUserId?.lastName ? user?.fromUserId?.lastName : "")}
-                      </a>
+                      {user?.fromUserId?.firstName +
+                        " " +
+                        (user?.fromUserId?.lastName ? user?.fromUserId?.lastName : "")}
                     </h3>
                     <p className="mt-2 text-sm font-light text-gray-400">{user?.fromUserId?.about}</p>
                     <div className="flex flex-wrap max-w-[200px]">
@@ -121,11 +146,11 @@ const Requests = () => {
                       </button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
       )}
     </div>
   );

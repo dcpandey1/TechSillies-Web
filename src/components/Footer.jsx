@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsPeople } from "react-icons/bs";
 import { MdFollowTheSigns } from "react-icons/md";
+import { IoReader } from "react-icons/io5";
 
 const Footer = () => {
   const user = useSelector((state) => state.user);
@@ -81,6 +82,12 @@ const Footer = () => {
             <button className="flex flex-col items-center text-white-600 hover:text-black">
               <MdFollowTheSigns />
               <span className="text-sm text-white">Requests</span>
+            </button>
+          </Link>
+          <Link to="/blogs">
+            <button className="flex flex-col items-center text-white-600 hover:text-black">
+              <IoReader />
+              <span className="text-sm text-white">Blogs</span>
             </button>
           </Link>
         </div>

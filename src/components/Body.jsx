@@ -26,7 +26,7 @@ const Body = () => {
       dispatch(addUser(res.data));
     } catch (error) {
       if (error?.response?.status) {
-        navigate("/login");
+        navigate("/home");
       }
       console.log("Error :" + error);
     }
@@ -61,10 +61,18 @@ const Body = () => {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
-      {/* Background */}
-      <div ref={vantaRef} className="fixed top-0 left-0 w-full h-full -z-10"></div>
+      {/* Vanta Background */}
+      <div ref={vantaRef} className="fixed top-0 left-0 w-full h-full -z-20" />
 
-      {/* Content */}
+      {/* Overlay image with blend mode */}
+      <div
+        className="fixed top-0 left-0 w-full h-full bg-cover bg-center mix-blend-overlay opacity-70 -z-10"
+        style={{
+          backgroundImage: "url('https://www.leadsnextech.com/_next/static/media/bg.153fe1e6.jpg')",
+        }}
+      />
+
+      {/* Main content */}
       <div className="relative z-10">
         <Navbar />
         <Outlet />

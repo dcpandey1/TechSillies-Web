@@ -59,22 +59,22 @@ const Blogs = () => {
   const shimmerSkeleton = (
     <div className="flex flex-col overflow-hidden rounded-lg shadow-lg animate-pulse">
       <div className="flex-shrink-0">
-        <div className="h-48 w-full bg-gray-200"></div>
+        <div className="h-48 w-full bg-gray-800"></div>
       </div>
-      <div className="flex flex-1 flex-col justify-between bg-white p-6">
+      <div className="flex flex-1 flex-col justify-between bg-gray-700 p-6">
         <div className="flex-1">
-          <div className="h-4 w-1/4 bg-gray-200 rounded mb-2"></div>
-          <div className="h-6 w-3/4 bg-gray-200 rounded mb-3"></div>
-          <div className="h-4 w-full bg-gray-200 rounded mb-2"></div>
-          <div className="h-4 w-5/6 bg-gray-200 rounded"></div>
+          <div className="h-4 w-1/4 bg-gray-800 rounded mb-2"></div>
+          <div className="h-6 w-3/4 bg-gray-800 rounded mb-3"></div>
+          <div className="h-4 w-full bg-gray-800 rounded mb-2"></div>
+          <div className="h-4 w-5/6 bg-gray-800 rounded"></div>
         </div>
         <div className="mt-6 flex items-center">
           <div className="flex-shrink-0">
-            <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+            <div className="h-10 w-10 rounded-full bg-gray-900"></div>
           </div>
           <div className="ml-3">
-            <div className="h-4 w-1/2 bg-gray-200 rounded mb-1"></div>
-            <div className="h-3 w-1/3 bg-gray-200 rounded"></div>
+            <div className="h-4 w-1/2 bg-gray-700 rounded mb-1"></div>
+            <div className="h-3 w-1/3 bg-gray-700 rounded"></div>
           </div>
         </div>
       </div>

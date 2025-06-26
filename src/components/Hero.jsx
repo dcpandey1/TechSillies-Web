@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import bgImage from "../assests/bg.svg";
 
 const Hero = () => {
   return (
@@ -6,9 +7,9 @@ const Hero = () => {
       <section className="relative  text-white overflow-hidden  ">
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-auto bg-center"
           style={{
-            backgroundImage: "url('https://www.leadsnextech.com/_next/static/media/bg.153fe1e6.jpg')",
+            backgroundImage: `url(${bgImage})`,
             opacity: 0.4, // Make background semi-transparent
           }}
         ></div>
@@ -16,7 +17,7 @@ const Hero = () => {
         <div className="container mx-auto lg:px-12 px-5 py-16  md:py-32 relative z-10 lg:h-[90vh]">
           <div className="flex flex-col md:flex-row items-center justify-around">
             <div className="w-full md:w-1/2 mb-12 md:mb-0 relative">
-              <h1 className="text-4xl md:text-7xl font-bold mb-6 leading-tight ">
+              <h1 className="text-3xl md:text-7xl font-bold mb-6 leading-tight ">
                 Meet
                 <br />
                 <span className="bg-gradient-to-r from-primary via-blue-500 to-secondary inline-block text-transparent bg-clip-text">
@@ -24,16 +25,16 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <p className="text-xl mb-5 text-gray-300 ">
+              <p className="text-lg sm:text-xl mb-5 text-gray-300 ">
                 Say goodbye to bots and ghosting. Find genuine people who actually want to talk.
               </p>
-              <div className="flex flex-col w-44 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 ">
+              <div className="flex flex-col w-1/12 sm:w-auto sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 ">
                 <Link to="/login">
                   <button className="group relative w-full sm:w-auto px-6 py-3 min-w-[160px]">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg"></div>
                     <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg lg:blur-md blur-0 group-hover:opacity-60 transition-opacity duration-500"></div>
                     <div className="relative flex items-center justify-center gap-2">
-                      <span className="text-white font-medium">Get Started</span>
+                      <span className="text-white font-medium text-sm sm:text-lg">Get Started</span>
                       <svg
                         className="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform"
                         fill="none"
@@ -68,7 +69,7 @@ const Hero = () => {
                 <ul className="space-y-4">
                   <li className="flex items-center">
                     <svg
-                      className="w-6 h-6 mr-3 text-yellow-400"
+                      className="w-6 h-6 mr-3 text-secondary"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -85,7 +86,7 @@ const Hero = () => {
                   </li>
                   <li className="flex items-center">
                     <svg
-                      className="w-6 h-6 mr-3 text-green-400"
+                      className="w-6 h-6 mr-3 text-gray-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -102,7 +103,7 @@ const Hero = () => {
                   </li>
                   <li className="flex items-center">
                     <svg
-                      className="w-6 h-6 mr-3 text-purple-400"
+                      className="w-6 h-6 mr-3 text-primary"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -124,7 +125,7 @@ const Hero = () => {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
               fill="white"

@@ -114,7 +114,7 @@ const Profile = () => {
               </Link>
 
               {/* Aadhaar Verify Button */}
-              <button
+              {/* <button
                 onClick={() => {
                   setAadhaarData(null);
                   setError(null);
@@ -123,7 +123,7 @@ const Profile = () => {
                 className="mt-4 bg-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-green-600"
               >
                 Verify Aadhaar QR
-              </button>
+              </button> */}
 
               {/* QR Scanner mount point */}
               {showScanner && (

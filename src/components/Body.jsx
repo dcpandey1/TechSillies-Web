@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { BaseURL } from "../constants/data";
 import * as THREE from "three";
 import RINGS from "vanta/dist/vanta.rings.min";
+import bgImage from "../assests/bg.svg";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Body = () => {
       dispatch(addUser(res.data));
     } catch (error) {
       if (error?.response?.status) {
-        navigate("/home");
+        navigate("/");
       }
       console.log("Error :" + error);
     }
@@ -68,7 +69,7 @@ const Body = () => {
       <div
         className="fixed top-0 left-0 w-full h-full bg-cover bg-center mix-blend-overlay opacity-70 -z-10"
         style={{
-          backgroundImage: "url('https://www.leadsnextech.com/_next/static/media/bg.153fe1e6.jpg')",
+          backgroundImage: `url(${bgImage})`,
         }}
       />
 

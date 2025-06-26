@@ -25,6 +25,7 @@ const Body = () => {
     try {
       const res = await axios.get(BaseURL + "/profile/view", { withCredentials: true });
       dispatch(addUser(res.data));
+      navigate("/profile");
     } catch (error) {
       if (error?.response?.status) {
         navigate("/home");

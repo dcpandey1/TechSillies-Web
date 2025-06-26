@@ -18,24 +18,21 @@ const Body = () => {
   const vantaRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
 
-  const fetchUser = async () => {
-    if (userData) {
-      return;
-    }
-    try {
-      const res = await axios.get(BaseURL + "/profile/view", { withCredentials: true });
-      dispatch(addUser(res.data));
-    } catch (error) {
-      if (error?.response?.status) {
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (userData?._id) return;
+
+      try {
+        const { data } = await axios.get(BaseURL + "/profile/view", { withCredentials: true });
+        dispatch(addUser(data));
+      } catch (error) {
+        console.error("fetchUser error:", error);
         navigate("/home");
       }
-      console.log("Error :" + error);
-    }
-  };
+    };
 
-  useEffect(() => {
     fetchUser();
-  }, []);
+  }, [userData?._id, dispatch, navigate]);
 
   useEffect(() => {
     if (!vantaEffect) {

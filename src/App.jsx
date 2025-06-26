@@ -19,9 +19,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Body />}>
+            <Route path="/" element={<Feed />} />
             <Route path="/home" element={<Hero />} />
             <Route path="/blogs" element={<Blogs />} />
-            <Route path="/" element={<Feed />} />
             <Route path="/policy" element={<PrivacyPolicy />} />
             <Route path="/chat/:targetUserId" element={<Chat />} />
             <Route path="/login" element={<Login />} />

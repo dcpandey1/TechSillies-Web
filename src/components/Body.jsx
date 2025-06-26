@@ -27,7 +27,7 @@ const Body = () => {
       dispatch(addUser(res.data));
     } catch (error) {
       if (error?.response?.status) {
-        navigate("/home");
+        navigate("/");
       }
       console.log("Error :" + error);
     }

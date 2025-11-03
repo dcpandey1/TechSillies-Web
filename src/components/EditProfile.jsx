@@ -13,6 +13,7 @@ const EditProfile = () => {
   const [firstName, setFirstName] = useState(user?.user?.firstName);
   const [lastName, setLastName] = useState(user?.user?.lastName);
   const [headline, setHeadline] = useState(user?.user?.headline);
+  const [company, setCompany] = useState(user?.user?.company);
   const [about, setAbout] = useState(user?.user?.about || "");
   const [skills, setSkills] = useState(user?.user?.skills || ["C++", "HTML"]);
   const [skillInput, setSkillInput] = useState("");
@@ -79,6 +80,8 @@ const EditProfile = () => {
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
       formData.append("about", about);
+      formData.append("company", company);
+
       formData.append("headline", headline);
       formData.append("skills", skills.join(","));
       if (image) formData.append("image", image);
@@ -205,6 +208,16 @@ const EditProfile = () => {
                   />
                 </div>
                 <div className="w-full mb-4">
+                  <label className="mb-2 text-gray-300">Company</label>
+                  <input
+                    type="text"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    className="mt-2 p-4 w-full border-2 rounded-lg text-gray-200 border-gray-600 bg-gray-800"
+                    placeholder="Company"
+                  />
+                </div>
+                <div className="w-full mb-4">
                   <label className="mb-2 text-gray-300">About</label>
                   <textarea
                     value={about}
@@ -250,9 +263,9 @@ const EditProfile = () => {
               </div>
 
               {/* Submit Button */}
-              <div className="w-1/2 sm:w-1/3 mx-auto rounded-lg bg-pink-800 mt-4 text-white text-lg font-semibold">
+              <div className="w-1/2 sm:w-1/3 mx-auto rounded-lg bg-gradient-to-r from-primary to-secondary mt-4 text-white text-lg font-semibold">
                 <button type="submit" className="p-4 flex justify-center mx-auto" disabled={loading}>
-                  {loading ? <span className="loading loading-spinner text-white"></span> : "Save Profile"}
+                  {loading ? <span className="loading loading-spinner  text-white"></span> : "Save Profile"}
                 </button>
               </div>
             </form>
@@ -262,7 +275,7 @@ const EditProfile = () => {
 
       {toast && (
         <div className="toast toast-top toast-center">
-          <div className="alert alert-success">
+          <div className="alert alert-success bg-primary text-white">
             <span>Profile Saved Successfully</span>
           </div>
         </div>

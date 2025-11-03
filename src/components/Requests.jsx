@@ -134,13 +134,13 @@ const Requests = () => {
                     <div className="card-actions pt-4 flex flex-nowrap gap-4">
                       <button
                         onClick={() => reviewRequest("accept", user._id)}
-                        className="btn bg-primary w-20 sm:w-32"
+                        className="btn bg-primary w-20 sm:w-32 text-white"
                       >
                         Accept
                       </button>
                       <button
                         onClick={() => reviewRequest("reject", user._id)}
-                        className="btn bg-blue-800 w-20 sm:w-32"
+                        className="btn bg-gradient-to-r from-primary to-secondary w-20 sm:w-32 text-white"
                       >
                         Reject
                       </button>

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import logo from "../assests/ts_logo.svg";
+import logo from "../assests/Untitled_logo.svg";
 import axios from "axios";
 import { BaseURL } from "../constants/data";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,7 +40,7 @@ const Navbar = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="navbar bg-gray-900 shadow-xl  px-4"
+        className="navbar bg-gray-950 shadow-xl  px-4"
       >
         {/* Left: Logo */}
         <div className="flex-1">
@@ -79,7 +79,7 @@ const Navbar = () => {
             <Link to="/requests">
               <div className="indicator">
                 {(requestCount ?? 0) > 0 && (
-                  <span className="indicator-item badge bg-blue-600 mt-1">{requestCount}</span>
+                  <span className="indicator-item badge bg-secondary mt-1 text-white">{requestCount}</span>
                 )}
 
                 <motion.button whileHover={{ scale: 1.05 }} className="btn bg-white bg-opacity-0">
@@ -101,7 +101,7 @@ const Navbar = () => {
           <div className="flex-none flex items-center gap-4">
             {/* User Name */}
             <motion.p
-              className="sm:block text-base font-semibold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent drop-shadow-lg"
+              className="sm:block text-base font-semibold bg-gradient-to-r from-secondary to-secondary bg-clip-text text-transparent drop-shadow-lg"
               initial={{ x: 20 }}
               animate={{ x: 0 }}
               transition={{ duration: 0.3 }}

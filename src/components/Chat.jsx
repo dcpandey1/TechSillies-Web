@@ -100,7 +100,7 @@ const Chat = () => {
         </div>
 
         {/* <!-- Chat messages area --> */}
-        <div className="h-96 overflow-y-auto neo-inset p-4 rounded-xl space-y-4 bg-gradient-to-r from-blue-900/50 to-pink-900/50 ">
+        <div className="h-96 overflow-y-auto neo-inset p-4 rounded-xl space-y-4 bg-gradient-to-r from-primary to-secondary ">
           {/* <!-- Received message --> */}
 
           {messages.map((msg, index) => {
@@ -128,7 +128,7 @@ const Chat = () => {
                     "chat-bubble" +
                     " " +
                     "bg-" +
-                    (user.user.firstName === msg.firstName ? "secondary" : "primary")
+                    (user.user.firstName === msg.firstName ? "primary" : "secondary")
                   }
                 >
                   {msg.text}

@@ -143,7 +143,7 @@ const Login = () => {
                 )}
                 <motion.button
                   onClick={() => handleLogin()}
-                  className="mt-5 tracking-wide font-semibold bg-secondary text-gray-100 w-full py-4 rounded-lg hover:bg-primary transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  className="mt-5 tracking-wide font-semibold bg-gradient-to-r from-primary to-secondary text-gray-100 w-full py-4 rounded-lg hover:bg-primary transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   whileHover={{ scale: 1.05 }} // Add hover scale effect
                   transition={{ duration: 0.2 }} // Duration for hover effect
                 >
@@ -167,7 +167,7 @@ const Login = () => {
           <div className="flex justify-center space-x-2 m-2">
             <span className="text-gray-300">{"New to Tech Silles ?"}</span>
             <Link to="/signup">
-              <span className="bg-gradient-to-r from-pink-400 to-blue-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-secondary to-secondary bg-clip-text text-transparent">
                 {" "}
                 Sign Up
               </span>

@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from "react";
 import { BaseURL } from "../constants/data";
 import * as THREE from "three";
 import RINGS from "vanta/dist/vanta.rings.min";
-import bgImage from "../assests/bg.svg";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -66,12 +65,7 @@ const Body = () => {
       <div ref={vantaRef} className="fixed top-0 left-0 w-full h-full -z-20" />
 
       {/* Overlay image with blend mode */}
-      <div
-        className="fixed top-0 left-0 w-full h-full bg-cover bg-center mix-blend-overlay opacity-70 -z-10"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-        }}
-      />
+      <div className="fixed top-0 left-0 w-full h-full bg-cover  bg-gradient-to-r from-black  to-gray-800 opacity-70 bg-center " />
 
       {/* Main content */}
       <div className="relative z-10">

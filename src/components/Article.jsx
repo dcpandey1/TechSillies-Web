@@ -137,7 +137,7 @@ const Article = () => {
   return (
     <div className="relative px-6 py-16 lg:px-8">
       <div className="mx-auto max-w-3xl">
-        <Link to="/blogs" className="text-blue-600 hover:underline mb-6 inline-block">
+        <Link to="/blogs" className="text-secondary hover:underline mb-6 inline-block">
           ← Back to Blogs
         </Link>
         <article className="rounded-lg shadow-lg shadow-gray-950  mx-auto bg-slate-800/20 backdrop-blur-sm border-slate-800 p-4 sm:p-6">

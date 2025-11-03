@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 import { BaseURL } from "../constants/data";
-import { motion } from "framer-motion"; // Importing motion
+import { motion } from "framer-motion";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -162,7 +162,7 @@ const SignUp = () => {
                 )}
                 <motion.button
                   onClick={() => handleSignUp()}
-                  className="mt-5 tracking-wide font-semibold bg-secondary text-gray-100 w-full py-4 rounded-lg hover:bg-primary transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                  className="mt-5 tracking-wide font-semibold bg-gradient-to-r from-primary to-secondary text-gray-100 w-full py-4 rounded-lg hover:bg-primary transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.5 }}
@@ -187,7 +187,7 @@ const SignUp = () => {
           <div className="flex justify-center space-x-2 m-2">
             <span className="text-gray-300">{"Already a User ?"}</span>
             <Link to="/login">
-              <span className="bg-gradient-to-r from-pink-400 to-blue-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-secondary to-secondary bg-clip-text text-transparent">
                 {" "}
                 Sign In
               </span>

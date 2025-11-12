@@ -12,6 +12,7 @@ import Chat from "./components/Chat";
 import Blogs from "./components/Blogs";
 import Article from "./components/Article";
 import Hero from "./components/Hero";
+import ReferralRequests from "./components/ReferralRequests";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/connections" element={<Connections />} />
             <Route path="/editProfile" element={<EditProfile />} />
             <Route path="/requests" element={<Requests />} />
+            <Route path="/referrals" element={<ReferralRequests />} />
           </Route>
         </Routes>
       </BrowserRouter>

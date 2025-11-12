@@ -27,7 +27,7 @@ const Hero = () => {
                 <Link to="/login">
                   <button className="group relative w-full sm:w-auto px-6 py-3 min-w-[160px]">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg lg:blur-md blur-0 group-hover:opacity-60 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg  group-hover:opacity-60 transition-opacity duration-500"></div>
                     <div className="relative flex items-center justify-center gap-2">
                       <span className="text-white font-medium text-sm sm:text-lg">Get Started</span>
                       <svg
@@ -51,7 +51,7 @@ const Hero = () => {
 
             {/* Right Card */}
             <div className="w-full md:w-2/5 md:pl-12">
-              <div className="relative rounded-3xl p-8 border border-white/20 shadow-xl backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 text-white overflow-hidden group transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-[1.02]">
+              <div className="relative rounded-3xl p-8  bg-slate-800/25 backdrop-blur-sm  border border-gray-700 shadow-2xl border-white/20   shadow-gray-900/70  overflow-hidden group transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-[1.02]">
                 {/* Shimmer effect */}
                 <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
                   <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_2.5s_infinite]"></div>

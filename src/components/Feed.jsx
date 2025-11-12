@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BaseURL } from "../constants/data";
+import { MdGroup, MdCheckCircle, MdPending, MdRocketLaunch } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addFeed, removeOneUserFromFeed } from "../utils/feedSlice";
@@ -8,11 +9,10 @@ import { motion, AnimatePresence } from "framer-motion";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
+  const [stats, setStats] = useState(null);
   const user = useSelector((state) => state.user);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFeed, setFilteredFeed] = useState([]);
-
-  // Modal states
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -21,14 +21,16 @@ const Feed = () => {
     email: "",
   });
 
-  // Fetch feed once
+  // Fetch users for feed
   const fetchFeed = async () => {
     if (feed && feed.length > 0) {
       setFilteredFeed(feed);
       return;
     }
     try {
-      const res = await axios.get(BaseURL + "/user/feed", { withCredentials: true });
+      const res = await axios.get(BaseURL + "/user/feed", {
+        withCredentials: true,
+      });
       dispatch(addFeed(res?.data?.feedUsers));
       setFilteredFeed(res?.data?.feedUsers);
     } catch (error) {
@@ -36,8 +38,21 @@ const Feed = () => {
     }
   };
 
+  // Fetch platform stats
+  const fetchStats = async () => {
+    try {
+      const res = await axios.get(`${BaseURL}/stats`, {
+        withCredentials: true,
+      });
+      setStats(res.data);
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
+  };
+
   useEffect(() => {
     fetchFeed();
+    fetchStats();
   }, []);
 
   const handleSendRequest = async (status, userId) => {
@@ -50,7 +65,6 @@ const Feed = () => {
     }
   };
 
-  // 🔍 Search and Clear Handlers
   const handleSearch = () => {
     if (!searchTerm.trim()) {
       setFilteredFeed(feed);
@@ -65,110 +79,138 @@ const Feed = () => {
     setFilteredFeed(feed);
   };
 
-  // Modal handlers
   const openReferralModal = (selected) => {
     setSelectedUser(selected);
     setFormData({
       jobLink: "",
       resumeLink: "",
-      email: user?.user?.email || "", // use logged-in user's email
+      email: user?.user?.email || "",
     });
     setShowModal(true);
   };
 
-  const handleReferralSubmit = () => {
+  const handleReferralSubmit = async () => {
     const { jobLink, resumeLink, email } = formData;
     if (!jobLink || !resumeLink || !email) {
       alert("Please fill all fields before submitting.");
       return;
     }
-    alert(`Referral request sent to ${selectedUser.firstName}`);
-    setShowModal(false);
+
+    try {
+      await axios.post(
+        `${BaseURL}/referral/send/${selectedUser._id}`,
+        { jobLink, resumeLink },
+        { withCredentials: true }
+      );
+      alert(`Referral request sent to ${selectedUser.firstName}`);
+      setShowModal(false);
+    } catch (error) {
+      alert(error.response?.data?.error || "Something went wrong");
+    }
   };
 
   if (!feed) return null;
 
-  if (feed.length === 0) {
-    return (
-      <motion.div
-        className="flex justify-center items-center mt-16 px-4 py-8 sm:py-16"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="text-center">
-          <motion.img
-            src="https://www.animatedimages.org/data/media/202/animated-dog-image-0712.gif"
-            alt="No users"
-            className="w-48 h-48 sm:w-64 sm:h-64 object-contain mb-4 mx-auto"
-          />
-          <motion.h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-secondary">
-            No More Users To Connect !!
-          </motion.h2>
-          <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-400">
-            Come back later for new users to connect with.
-          </p>
-        </div>
-      </motion.div>
-    );
-  }
-
   return (
     <motion.section
-      className="min-h-screen mb-10"
+      className="min-h-screen py-10 px-4 md:px-8 lg:px-12 mb-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="py-8 px-4 mx-auto max-w-3xl lg:py-12">
-        {/* Header Section */}
-        <div className="mx-auto text-center mb-8">
-          <motion.h2 className="mb-4 text-3xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Suggested Connections
-          </motion.h2>
+      {/* Header */}
+      <div className="text-center mb-10">
+        <motion.h2 className="mb-4 text-3xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          Suggested Connections
+        </motion.h2>
 
-          {/* 🔍 Search Bar + Buttons */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 w-full max-w-xl mx-auto">
-            <input
-              type="text"
-              placeholder="Search by company name..."
-              className="flex-grow min-w-[150px] px-3 py-2 rounded-xl border border-slate-700 bg-slate-900/50 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-
+        {/* Search */}
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 w-full max-w-xl mx-auto">
+          <input
+            type="text"
+            placeholder="Search by company name..."
+            className="flex-grow min-w-[150px] px-3 py-2 rounded-xl border border-slate-700 bg-slate-900/50 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2 rounded-xl bg-primary text-gray-100 font-semibold hover:scale-105 transition-transform duration-200"
+          >
+            Search
+          </button>
+          {searchTerm && (
             <button
-              onClick={handleSearch}
-              className="px-4 py-2 rounded-xl bg-primary text-gray-100 font-semibold hover:scale-105 transition-transform duration-200"
+              onClick={handleClearSearch}
+              className="px-4 py-2 rounded-xl bg-slate-700 text-gray-300 font-semibold hover:bg-slate-600 transition duration-200"
             >
-              Search
+              Clear
             </button>
-
-            {searchTerm && (
-              <button
-                onClick={handleClearSearch}
-                className="px-4 py-2 rounded-xl bg-slate-700 text-gray-300 font-semibold hover:bg-slate-600 transition duration-200"
-              >
-                Clear
-              </button>
-            )}
-          </div>
+          )}
         </div>
+      </div>
 
-        {/* User Feed */}
-        <div className="flex flex-col gap-8 items-center">
+      {/* Main layout grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr_260px] gap-8 lg:gap-12 justify-center items-start">
+        {/* Left Sidebar (Stats) */}
+        <motion.aside
+          className="hidden lg:block bg-slate-900/60 border border-slate-700 rounded-2xl p-5 shadow-xl h-fit"
+          initial={{ x: -60, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h3 className="text-xl font-bold mb-4 text-secondary text-center">Techsillies Insights</h3>
+          {stats ? (
+            <ul className="flex flex-col gap-4 text-gray-300">
+              <li className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MdGroup className="text-blue-400 text-xl" /> Total Users
+                </div>
+                <span className="font-semibold">{stats.totalUsers}</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MdRocketLaunch className="text-purple-400 text-xl" /> Referrals Sent
+                </div>
+                <span className="font-semibold">{stats.totalReferrals}</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MdCheckCircle className="text-green-400 text-xl" /> Accepted
+                </div>
+                <span className="font-semibold">{stats.totalAccepted}</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MdPending className="text-yellow-400 text-xl" /> Pending
+                </div>
+                <span className="font-semibold">{stats.totalPending}</span>
+              </li>
+              <li className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MdGroup className="text-cyan-400 text-xl" /> Active This Week
+                </div>
+                <span className="font-semibold">{stats.activeUsers}</span>
+              </li>
+            </ul>
+          ) : (
+            <p className="text-gray-500 text-sm text-center mt-6">Loading stats...</p>
+          )}
+        </motion.aside>
+
+        {/* Center Feed */}
+        <div className="flex flex-col gap-8 items-center w-full">
           {filteredFeed.length === 0 ? (
             <p className="text-gray-400 mt-6 text-center">No users found for that company.</p>
           ) : (
             filteredFeed.map((user, idx) => (
               <motion.div
                 key={user._id}
-                className="flex flex-col sm:flex-row items-center bg-slate-900/40 backdrop-blur-md border border-slate-800 rounded-2xl shadow-lg shadow-black/50 p-5 sm:p-6 w-full max-w-xl hover:shadow-primary/40 transition-shadow duration-300"
+                className="flex flex-col sm:flex-row items-center bg-slate-800/25 border border-gray-700 shadow-2xl rounded-2xl p-5 sm:p-6 w-full max-w-xl hover:shadow-primary/40 transition-shadow duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05, duration: 0.4 }}
               >
-                {/* Profile Image */}
                 <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-gray-600 flex-shrink-0">
                   <motion.img
                     src={user.imageURL}
@@ -178,8 +220,6 @@ const Feed = () => {
                     transition={{ duration: 0.3 }}
                   />
                 </div>
-
-                {/* User Info */}
                 <div className="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left w-full">
                   <h3 className="text-xl font-bold text-gray-100">
                     {user.firstName} {user.lastName || ""}
@@ -187,25 +227,21 @@ const Feed = () => {
                   <p className="text-gray-400 text-sm mt-1">
                     {user.headline} @ <span className="text-gray-300 font-medium">{user.company}</span>
                   </p>
-
-                  {user.skills && user.skills.length > 0 && (
+                  {user.skills?.length > 0 && (
                     <p className="mt-2 text-sm text-gray-400">
                       <span className="text-gray-500">Expert in:</span> {user.skills.join(", ")}
                     </p>
                   )}
-
-                  {/* Buttons */}
                   <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center sm:justify-start">
                     <motion.button
-                      className="px-4 py-2 text-sm sm:text-base rounded-xl bg-primary text-gray-300 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-200"
+                      className="px-4 py-2 rounded-xl bg-primary text-gray-300 font-semibold hover:scale-105 transition-transform duration-200"
                       whileHover={{ scale: 1.05 }}
                       onClick={() => handleSendRequest("interested", user._id)}
                     >
                       Connect
                     </motion.button>
-
                     <motion.button
-                      className="px-4 py-2 text-sm sm:text-base rounded-xl bg-gradient-to-r from-primary to-secondary text-gray-100 font-semibold shadow-md transition-transform duration-200"
+                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-secondary text-gray-100 font-semibold hover:scale-105 transition-transform duration-200"
                       whileHover={{ scale: 1.05 }}
                       onClick={() => openReferralModal(user)}
                     >
@@ -217,9 +253,54 @@ const Feed = () => {
             ))
           )}
         </div>
+
+        {/* Right Sidebar (Testimonials) */}
+        <motion.aside
+          className="hidden lg:block bg-slate-800/25 border border-gray-700 shadow-2xl rounded-2xl p-5 h-fit"
+          initial={{ x: 60, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h3 className="text-xl font-bold mb-4 text-secondary text-center">What Users Say</h3>
+          <div className="flex flex-col gap-5 text-gray-300">
+            <div className="bg-slate-800/50 rounded-xl p-4 shadow-md hover:shadow-primary/30 transition">
+              <p className="italic text-sm">
+                “Techsillies helped me connect with amazing developers. I even got a referral within a week!”
+              </p>
+              <div className="mt-3 flex items-center gap-3">
+                <img
+                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  alt="user"
+                  className="w-10 h-10 rounded-full border border-slate-600"
+                />
+                <div>
+                  <p className="text-sm font-semibold text-gray-100">Neha Sharma</p>
+                  <p className="text-xs text-gray-400">Frontend Developer @ Zoho</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-800/50 rounded-xl p-4 shadow-md hover:shadow-secondary/30 transition">
+              <p className="italic text-sm">
+                “Clean interface, real people, and great opportunities. Techsillies is a must for developers!”
+              </p>
+              <div className="mt-3 flex items-center gap-3">
+                <img
+                  src="https://randomuser.me/api/portraits/men/37.jpg"
+                  alt="user"
+                  className="w-10 h-10 rounded-full border border-slate-600"
+                />
+                <div>
+                  <p className="text-sm font-semibold text-gray-100">Ravi Kumar</p>
+                  <p className="text-xs text-gray-400">Full Stack Dev @ Accenture</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.aside>
       </div>
 
-      {/* 🔹 Referral Modal */}
+      {/* Referral Modal */}
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -238,7 +319,6 @@ const Feed = () => {
               <h3 className="text-xl font-bold mb-4 text-center">
                 Ask {selectedUser?.firstName} for a Referral
               </h3>
-
               <div className="flex flex-col gap-3">
                 <input
                   type="text"
@@ -262,7 +342,6 @@ const Feed = () => {
                   className="px-3 py-2 rounded-md bg-slate-800 border border-slate-700 focus:ring-2 focus:ring-primary outline-none"
                 />
               </div>
-
               <div className="flex justify-end gap-3 mt-5">
                 <button
                   onClick={() => setShowModal(false)}

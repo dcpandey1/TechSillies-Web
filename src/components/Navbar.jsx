@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../assests/Untitled_logo.svg";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BaseURL } from "../constants/data";
 import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
@@ -18,10 +18,24 @@ const Navbar = () => {
   const requestCount = request?.length;
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   const toggleDropdown = () => setOpen((prev) => !prev);
+
+  // ✅ Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -44,7 +58,7 @@ const Navbar = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="navbar bg-gray-950 shadow-xl px-4 "
+      className="navbar bg-gray-950 shadow-xl px-4"
     >
       {/* Left: Logo */}
       <div className="flex-1">
@@ -72,11 +86,10 @@ const Navbar = () => {
           </Link>
 
           {/* 🔽 Referral Requests Dropdown */}
-          {/* 🔽 Referral Requests Dropdown */}
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <motion.button
               whileHover={{ scale: 1.05 }}
-              className="btn bg-white bg-opacity-0 flex items-center gap-2"
+              className="btn w-48 bg-white bg-opacity-0 flex items-center gap-2"
               onClick={toggleDropdown}
             >
               <MdFollowTheSigns />
@@ -118,18 +131,19 @@ const Navbar = () => {
           <Link to="/connections">
             <motion.button
               whileHover={{ scale: 1.05 }}
-              className="btn w-auto bg-white bg-opacity-0 backdrop-filter"
+              className="btn w-40 bg-white bg-opacity-0 backdrop-filter"
             >
               <BsPeople />
               Connections
             </motion.button>
           </Link>
+
           <Link to="/requests">
             <div className="indicator">
               {(requestCount ?? 0) > 0 && (
                 <span className="indicator-item badge bg-secondary mt-1 text-white">{requestCount}</span>
               )}
-              <motion.button whileHover={{ scale: 1.05 }} className="btn bg-white bg-opacity-0">
+              <motion.button whileHover={{ scale: 1.05 }} className="btn bg-white bg-opacity-0 mr-4">
                 <MdFollowTheSigns />
                 Requests
               </motion.button>
@@ -182,6 +196,9 @@ const Navbar = () => {
               </li>
               <li>
                 <Link to="/blogs">Blogs</Link>
+              </li>
+              <li>
+                <Link to="/privacypolicy">Privacy Policy</Link>
               </li>
               <li>
                 <a onClick={handleLogout}>Logout</a>

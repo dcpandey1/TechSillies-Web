@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addFeed, removeOneUserFromFeed } from "../utils/feedSlice";
 import { motion, AnimatePresence } from "framer-motion";
+import { isValidUrl } from "../utils/isValidURLS";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -94,6 +95,13 @@ const Feed = () => {
     if (!jobLink || !resumeLink || !email) {
       alert("Please fill all fields before submitting.");
       return;
+    }
+    if (!isValidUrl(jobLink)) {
+      return alert("Please enter a valid job link");
+    }
+
+    if (!isValidUrl(resumeLink)) {
+      return alert("Please upload a valid resume link");
     }
 
     try {
@@ -211,7 +219,7 @@ const Feed = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05, duration: 0.4 }}
               >
-                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-gray-600 flex-shrink-0">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gray-600 flex-shrink-0">
                   <motion.img
                     src={user.imageURL}
                     alt="Profile"
@@ -232,16 +240,18 @@ const Feed = () => {
                       <span className="text-gray-500">Expert in:</span> {user.skills.join(", ")}
                     </p>
                   )}
-                  <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center sm:justify-start">
+
+                  {/* Mobile-friendly button widths */}
+                  <div className="mt-4 flex flex-col sm:flex-row gap-3 items-center justify-center sm:items-start sm:justify-start w-full">
                     <motion.button
-                      className="px-4 py-2 rounded-xl bg-primary text-gray-300 font-semibold hover:scale-105 transition-transform duration-200"
+                      className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary text-gray-300 font-semibold text-sm sm:text-base hover:scale-105 transition-transform duration-200 w-32 sm:w-auto"
                       whileHover={{ scale: 1.05 }}
                       onClick={() => handleSendRequest("interested", user._id)}
                     >
                       Connect
                     </motion.button>
                     <motion.button
-                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-secondary text-gray-100 font-semibold hover:scale-105 transition-transform duration-200"
+                      className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gradient-to-r from-primary to-secondary text-gray-100 font-semibold text-sm sm:text-base hover:scale-105 transition-transform duration-200 w-36 sm:w-auto"
                       whileHover={{ scale: 1.05 }}
                       onClick={() => openReferralModal(user)}
                     >

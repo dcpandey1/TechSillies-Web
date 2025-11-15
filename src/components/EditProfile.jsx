@@ -50,22 +50,32 @@ const EditProfile = () => {
     const file = event.target.files[0];
     if (!file) return;
 
+    // Reject extremely large images (browser safety)
+    if (file.size > 10 * 1024 * 1024) {
+      setError("Please upload images below 10 MB.");
+      return;
+    }
+
     try {
       setLoading(true);
-      setError(""); // Clear previous errors
+      setError("");
+
       const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 500,
+        maxSizeMB: 2, // slightly relaxed
+        maxWidthOrHeight: 800,
         useWebWorker: true,
       };
 
       const compressedFile = await imageCompression(file, options);
+
       setImage(compressedFile);
+
       const previewUrl = URL.createObjectURL(compressedFile);
       setImagePreview(previewUrl);
     } catch (error) {
       console.error("Error compressing image:", error);
-      setError("Failed to compress image. Please try again.");
+
+      setError("Failed to compress the image. Try using a smaller image or screenshot.");
     } finally {
       setLoading(false);
     }

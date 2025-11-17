@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import logo from "../assests/Untitled_logo.svg";
+import logo from "../assests/latest_logo.svg";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { BaseURL } from "../constants/data";

@@ -5,6 +5,7 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { BaseURL } from "../constants/data";
 import { motion } from "framer-motion"; // Import motion from framer-motion
+import logo from "../assests/latest_logo.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -67,7 +68,7 @@ const Login = () => {
           transition={{ duration: 0.8 }} // Animation duration
         >
           <div>
-            <img src="https://techsillies.com/assets/ts_logo-B2xY8GeG.svg" className="w-32 mx-auto" />
+            <img src={logo} className="w-32 mx-auto" />
           </div>
           <div className="mt-6 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold text-gray-400">Sign In</h1>

@@ -117,7 +117,9 @@ const ReferralRequests = () => {
                       : `${req.receiver?.firstName} ${req.receiver?.lastName}`}
                   </h3>
                   <p className="text-gray-400 text-sm">
-                    {viewType === "received" ? req.sender?.company : req.receiver?.company}
+                    {viewType === "received"
+                      ? "Works @ " + req.sender?.company
+                      : "Works @ " + req.receiver?.company}
                   </p>
                   <div className="text-sm mt-1">
                     <a href={req.jobLink} target="_blank" rel="noreferrer" className="text-blue-400">

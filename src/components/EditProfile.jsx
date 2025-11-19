@@ -129,13 +129,13 @@ const EditProfile = () => {
   return (
     <section className="py-10 my-auto">
       <div className="lg:w-[70%] md:w-[90%] w-[96%] mx-auto flex gap-4">
-        <div className="w-full sm:w-[88%] mx-auto bg-slate-800/20 backdrop-blur-sm border border-slate-800 shadow-xl shadow-gray-950 p-6 rounded-xl">
+        <div className="w-full sm:w-[88%] mx-auto bg-slate-800/25 border border-gray-700 shadow-2xl rounded-2xl shadow-gray-950 p-6">
           <div>
             <form onSubmit={editProfile}>
               {/* Profile Image */}
               <div className="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat">
                 <div
-                  className="w-full h-full rounded-full border-2 border-gray-500"
+                  className="w-half h-half rounded-full border-2 border-gray-500"
                   style={{
                     backgroundImage: `url(${imagePreview || "https://via.placeholder.com/150"})`,
                     backgroundSize: "cover",

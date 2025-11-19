@@ -13,6 +13,7 @@ import Blogs from "./components/Blogs";
 import Article from "./components/Article";
 import Hero from "./components/Hero";
 import ReferralRequests from "./components/ReferralRequests";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster position="top-center" />;
     </>
   );
 }

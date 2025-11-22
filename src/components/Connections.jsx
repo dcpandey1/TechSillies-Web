@@ -3,16 +3,27 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
 import { BaseURL } from "../constants/data";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import ShimmerConnections from "./ShimmerConnections";
+import { isValidUrl } from "../utils/isValidURLS";
 
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connection);
+  const loggedUser = useSelector((state) => state.user);
+
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredConnections, setFilteredConnections] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [formData, setFormData] = useState({
+    jobLink: "",
+    resumeLink: "",
+    email: "",
+  });
 
   const fetchConnection = async () => {
     if (connections && connections.length > 0) {
@@ -33,11 +44,21 @@ const Connections = () => {
     }
   };
 
+  const openReferralModal = (u) => {
+    setSelectedUser(u);
+    setFormData({
+      jobLink: "",
+      resumeLink: "",
+      email: loggedUser?.user?.email || "",
+    });
+    setShowModal(true);
+  };
+
   useEffect(() => {
     fetchConnection();
   }, []);
 
-  // 🔍 Handle Search
+  // 🔍 Search by name
   const handleSearch = () => {
     if (!searchTerm.trim()) {
       setFilteredConnections(connections);
@@ -49,6 +70,27 @@ const Connections = () => {
       (user) => user?.firstName?.toLowerCase().includes(term) || user?.lastName?.toLowerCase().includes(term)
     );
     setFilteredConnections(filtered);
+  };
+
+  const handleReferralSubmit = async () => {
+    const { jobLink, resumeLink, email } = formData;
+
+    if (!jobLink || !resumeLink || !email) return alert("Please fill all fields");
+
+    if (!isValidUrl(jobLink)) return alert("Enter valid job link");
+    if (!isValidUrl(resumeLink)) return alert("Enter valid resume link");
+
+    try {
+      await axios.post(
+        `${BaseURL}/referral/send/${selectedUser._id}`,
+        { jobLink, resumeLink },
+        { withCredentials: true }
+      );
+      alert(`Referral request sent to ${selectedUser.firstName}`);
+      setShowModal(false);
+    } catch (err) {
+      alert(err.response?.data?.error || "Something went wrong");
+    }
   };
 
   const handleClearSearch = () => {
@@ -71,19 +113,9 @@ const Connections = () => {
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
           >
             You have no connections, Connect with people from feed !!
           </motion.h2>
-          <motion.p
-            className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-500"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            It looks like you do not have any connections right now. Try connecting with people from your
-            feed.
-          </motion.p>
         </div>
       </motion.div>
     );
@@ -96,19 +128,18 @@ const Connections = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <div className="py-8 px-4 mx-auto lg:py-12 lg:px-6">
-        {/* 🔹 Header */}
+      <div className="py-8 px-4 mx-auto lg:py-8 lg:px-6">
+        {/* Header */}
         <div className="mx-auto max-w-screen-sm text-center mb-6">
           <motion.h2
             className="mb-4 text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
           >
             Your Connections
           </motion.h2>
 
-          {/* 🔍 Search Bar */}
+          {/* Search */}
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 w-full max-w-md mx-auto">
             <input
               type="text"
@@ -120,7 +151,7 @@ const Connections = () => {
 
             <button
               onClick={handleSearch}
-              className="px-4 py-2 rounded-xl bg-primary text-gray-100 font-semibold hover:scale-105 transition-transform duration-200"
+              className="px-4 py-2 rounded-xl bg-primary text-gray-100 font-semibold hover:scale-105 transition-transform"
             >
               Search
             </button>
@@ -128,7 +159,7 @@ const Connections = () => {
             {searchTerm && (
               <button
                 onClick={handleClearSearch}
-                className="px-4 py-2 rounded-xl bg-slate-700 text-gray-300 font-semibold hover:bg-slate-600 transition duration-200"
+                className="px-4 py-2 rounded-xl bg-slate-700 text-gray-300 font-semibold hover:bg-slate-600"
               >
                 Clear
               </button>
@@ -136,55 +167,44 @@ const Connections = () => {
           </div>
         </div>
 
-        {/* 🔹 Connection Cards */}
+        {/* Connections List */}
         <motion.div
           className="flex flex-col gap-6 items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
         >
           {filteredConnections.length === 0 ? (
-            <p className="text-gray-400 mt-6 text-center">No connections found with that name.</p>
+            <p className="text-gray-400 mt-6">No connections found.</p>
           ) : (
             filteredConnections.map((user) => (
               <motion.div
                 key={user?._id}
-                className="flex items-center rounded-xl border border-gray-700 shadow-2xl shadow-gray-900/70 w-[360px] sm:w-[450px] mx-auto bg-slate-800/25 backdrop-blur-sm p-4 sm:p-6 transition-all duration-300 hover:shadow-primary/40"
+                className="flex flex-col sm:flex-row items-center rounded-xl border border-gray-700 shadow-2xl shadow-gray-900/70 w-[360px] sm:w-[500px] mx-auto bg-slate-800/25 backdrop-blur-lg p-5 transition-all duration-300 hover:shadow-primary/40"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
               >
                 {/* Profile Image */}
-                <div className="w-28 h-28 sm:w-40 sm:h-40 aspect-square rounded-full overflow-hidden border-2 border-gray-500 flex-shrink-0">
+                <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-gray-500 flex-shrink-0">
                   <motion.img
-                    className="w-full h-full object-cover"
                     src={user?.imageURL}
                     alt="Profile"
+                    className="w-full h-full object-cover"
                     whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
                   />
                 </div>
 
                 {/* Info */}
-                <div className="p-4 flex-1 flex flex-col justify-between">
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-base sm:text-lg font-bold tracking-tight text-white">
-                      {user?.firstName + " " + (user?.lastName ? user?.lastName : "")}
-                    </h3>
-                    <Link to={"/chat/" + user?._id}>
-                      <button className="px-4 py-1.5 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition">
-                        Chat
-                      </button>
-                    </Link>
-                  </div>
-
-                  <p className="text-sm font-light text-gray-400">{user?.headline + " @ " + user?.company}</p>
-                  {user?.skills?.length > 0 && (
-                    <p className="mt-1 text-sm font-light text-blue-300">
-                      Expert In {user?.skills?.join(", ")}
-                    </p>
+                <div className="flex flex-col justify-between w-full sm:ml-5 mt-4 sm:mt-0">
+                  <h3 className="text-lg font-bold tracking-tight text-white text-center sm:text-left">
+                    {user?.firstName} {user?.lastName || ""}
+                  </h3>
+                  {user?.company && (
+                    <h5 className="text-sm font-bold tracking-tight text-gray-400 text-center sm:text-left">
+                      Works @ {user.company}
+                    </h5>
                   )}
-                  <p className="mt-2 text-xs text-gray-500">
+
+                  <p className="mt-1 text-xs text-center sm:text-left text-gray-500">
                     {user?.updatedAt
                       ? `Connected on ${new Date(Date.parse(user?.updatedAt)).toLocaleDateString("en-US", {
                           year: "numeric",
@@ -194,12 +214,81 @@ const Connections = () => {
                         })}`
                       : "Connection date unavailable"}
                   </p>
+
+                  {/* Buttons Row */}
+                  <div className="flex gap-3 mt-4 justify-center sm:justify-start">
+                    <Link to={"/chat/" + user?._id}>
+                      <button className="px-4 py-2 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition">
+                        Chat
+                      </button>
+                    </Link>
+
+                    <Link>
+                      <button
+                        onClick={() => openReferralModal(user)}
+                        className="px-4 py-2 text-sm font-semibold rounded-lg border border-primary text-white bg-primary hover:text-white transition"
+                      >
+                        Ask For Referral
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))
           )}
         </motion.div>
       </div>
+
+      {/* REFERRAL MODAL */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <div className="bg-slate-900 p-6 rounded-2xl w-full max-w-md">
+              <h3 className="text-xl font-bold mb-4 text-center">
+                Ask {selectedUser?.firstName} for Referral
+              </h3>
+
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  placeholder="Job Link"
+                  value={formData.jobLink}
+                  onChange={(e) => setFormData({ ...formData, jobLink: e.target.value })}
+                  className="px-3 py-2 rounded-md bg-slate-800 border border-slate-700 focus:ring-2 focus:ring-primary outline-none"
+                />
+                <input
+                  type="text"
+                  placeholder="Resume Link"
+                  value={formData.resumeLink}
+                  onChange={(e) => setFormData({ ...formData, resumeLink: e.target.value })}
+                  className="px-3 py-2 rounded-md bg-slate-800 border border-slate-700 focus:ring-2 focus:ring-primary outline-none"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="px-3 py-2 rounded-md bg-slate-800 border border-slate-700 focus:ring-2 focus:ring-primary outline-none"
+                />
+              </div>
+
+              <div className="flex justify-end gap-3 mt-5">
+                <button onClick={() => setShowModal(false)} className="px-4 py-2 bg-gray-700 rounded-lg">
+                  Cancel
+                </button>
+
+                <button onClick={handleReferralSubmit} className="px-4 py-2 bg-primary rounded-lg">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.section>
   );
 };

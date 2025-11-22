@@ -163,7 +163,7 @@ const Feed = () => {
 
   return (
     <motion.section
-      className="min-h-screen py-10 px-4 md:px-8 lg:px-12"
+      className="min-h-screen py-8 px-4 md:px-8 lg:px-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >

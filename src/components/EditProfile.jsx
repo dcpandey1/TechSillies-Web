@@ -218,7 +218,7 @@ const EditProfile = () => {
                   />
                 </div>
                 <div className="w-full mb-4">
-                  <label className="mb-2 text-gray-300">Company</label>
+                  <label className="mb-2 text-gray-300">Company/College</label>
                   <input
                     type="text"
                     value={company}

@@ -32,9 +32,9 @@ const Profile = () => {
     if (!isFirstRealRender.current) return;
     isFirstRealRender.current = false;
 
-    const { company, college } = user.user;
+    const { company } = user.user;
 
-    if (!company?.trim() || !college?.trim()) {
+    if (!company?.trim()) {
       toast.error("Please update your company or college name.", {
         duration: 4000,
         position: "bottom-right",

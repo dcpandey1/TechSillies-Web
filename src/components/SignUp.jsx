@@ -12,15 +12,11 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const girlImageURL =
-    "https://res.cloudinary.com/dyu786gc9/image/upload/v1740212074/tsdefaultgirl_kr13kj.jpg";
-  const boyImageURL = "https://res.cloudinary.com/dyu786gc9/image/upload/v1740212450/image_1_nyfgtb.jpg";
-  const imageURL = gender === "Female" ? girlImageURL : boyImageURL;
+  const imageURL = `https://api.dicebear.com/7.x/initials/svg?seed=${firstName[0]}${lastName[0]}`;
 
   const handleGoogleSignup = () => {
     window.location.href = BaseURL + "/auth/google";
@@ -30,7 +26,7 @@ const SignUp = () => {
     try {
       const res = await axios.post(
         BaseURL + "/signup",
-        { firstName, lastName, email, password, gender, imageURL },
+        { firstName, lastName, email, password, imageURL },
         { withCredentials: true }
       );
       dispatch(addUser(res?.data));
@@ -135,19 +131,6 @@ const SignUp = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                 />
-                <motion.select
-                  onChange={(e) => setGender(e.target.value)}
-                  className="select select-bordered w-full max-w-xs mt-5 bg-gray-100 border border-gray-200 placeholder-gray-500"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                >
-                  <option disabled selected>
-                    Gender
-                  </option>
-                  <option>Male</option>
-                  <option>Female</option>
-                </motion.select>
 
                 {errorMessage && (
                   <div className="mt-2 flex items-center justify-center bg-red-100 border border-red-400 text-red-800 text-sm font-medium px-4 py-2 rounded-md">

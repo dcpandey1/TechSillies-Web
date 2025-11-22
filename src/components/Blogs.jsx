@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import dp_image from "../assests/dp_image.jpeg";
+// import dp_image from "../assests/dp_image.jpeg";
 
 const Blogs = () => {
   const medium_API = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@dcpandey0";
@@ -125,14 +125,14 @@ const Blogs = () => {
                       </div>
                     </div>
                     <div className="mt-4 flex items-center">
-                      <div className="flex-shrink-0">
+                      {/* <div className="flex-shrink-0">
                         <span className="sr-only">{post.author}</span>
                         <img
                           className="h-10 w-10 rounded-full"
                           src={dp_image}
                           alt={`${post.author}'s profile`}
                         />
-                      </div>
+                      </div> */}
                       <div className="ml-3">
                         <p className="text-sm font-medium text-slate-400">{post.author}</p>
                         <div className="flex space-x-1 text-sm text-gray-500">

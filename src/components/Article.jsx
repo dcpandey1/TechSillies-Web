@@ -1,6 +1,5 @@
 import { useLocation, Link } from "react-router-dom";
 import parse from "html-react-parser";
-import dp_image from "../assests/dp_image.jpeg";
 
 const Article = () => {
   const { state } = useLocation();
@@ -146,7 +145,7 @@ const Article = () => {
               {article.title}
             </h1>
             <div className="mt-4 flex items-center">
-              <img className="h-10 w-10 rounded-full" src={dp_image} alt={`${article.author}'s profile`} />
+              {/* <img className="h-10 w-10 rounded-full" src={dp_image} alt={`${article.author}'s profile`} /> */}
               <div className="ml-3">
                 <p className="text-lg font-medium text-gray-400">{article.author}</p>
                 <p className="text-sm text-gray-500">

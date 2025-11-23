@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { BaseURL } from "../constants/data";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 import logo from "../assests/latest_logo.svg";
+import mainsvg from "../assests/main.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -60,7 +61,7 @@ const Login = () => {
       animate={{ opacity: 1 }} // Animate to fully visible
       transition={{ duration: 0.5 }} // Animation duration
     >
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-slate-800/25 backdrop-blur-sm  border border-gray-700 shadow-2xl shadow-gray-900/70 sm:rounded-lg flex justify-center flex-1">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-slate-800/25  border border-gray-700 shadow-2xl shadow-gray-900/70 sm:rounded-lg flex justify-center flex-1">
         <motion.div
           className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"
           initial={{ x: -200 }} // Start from the left
@@ -177,10 +178,9 @@ const Login = () => {
         </motion.div>
         <div className="flex-1 bg-gradient-to-r from-primary/70  to-secondary/70 text-center hidden lg:flex rounded-r-lg">
           <div
-            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+            className="m-12 xl:m-10 w-full bg-contain bg-center bg-no-repeat"
             style={{
-              backgroundImage:
-                "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')",
+              backgroundImage: mainsvg ? `url(${mainsvg})` : "none",
             }}
           ></div>
         </div>

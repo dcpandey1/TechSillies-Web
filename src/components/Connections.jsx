@@ -179,12 +179,12 @@ const Connections = () => {
             filteredConnections.map((user) => (
               <motion.div
                 key={user?._id}
-                className="flex flex-col sm:flex-row items-center rounded-xl border border-gray-700 shadow-2xl shadow-gray-900/70 w-[360px] sm:w-[500px] mx-auto bg-slate-800/25 backdrop-blur-lg p-5 transition-all duration-300 hover:shadow-primary/40"
+                className="flex flex-row items-center gap-5 rounded-xl border border-gray-700 shadow-2xl w-full max-w-xl bg-slate-800/25 p-4 hover:shadow-primary/40 transition-all"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
                 {/* Profile Image */}
-                <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-gray-500 flex-shrink-0">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gray-500 flex-shrink-0">
                   <motion.img
                     src={user?.imageURL}
                     alt="Profile"
@@ -193,18 +193,17 @@ const Connections = () => {
                   />
                 </div>
 
-                {/* Info */}
-                <div className="flex flex-col justify-between w-full sm:ml-5 mt-4 sm:mt-0">
-                  <h3 className="text-lg font-bold tracking-tight text-white text-center sm:text-left">
-                    {user?.firstName} {user?.lastName || ""}
+                {/* Right Section */}
+                <div className="flex flex-col justify-start text-left w-full">
+                  <h3 className="text-xl font-bold text-white">
+                    {user?.firstName} {user?.lastName}
                   </h3>
+
                   {user?.company && (
-                    <h5 className="text-sm font-bold tracking-tight text-gray-400 text-center sm:text-left">
-                      Works @ {user.company}
-                    </h5>
+                    <h5 className="text-sm font-semibold text-gray-400">Works @ {user.company}</h5>
                   )}
 
-                  <p className="mt-1 text-xs text-center sm:text-left text-gray-500">
+                  <p className="text-xs text-gray-500 mt-1">
                     {user?.updatedAt
                       ? `Connected on ${new Date(Date.parse(user?.updatedAt)).toLocaleDateString("en-US", {
                           year: "numeric",
@@ -216,21 +215,19 @@ const Connections = () => {
                   </p>
 
                   {/* Buttons Row */}
-                  <div className="flex gap-3 mt-4 justify-center sm:justify-start">
-                    <Link to={"/chat/" + user?._id}>
-                      <button className="px-4 py-2 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition">
+                  <div className="flex gap-3 mt-4">
+                    <Link to={`/chat/${user?._id}`}>
+                      <button className="px-4 py-2 text-sm rounded-lg text-white bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition">
                         Chat
                       </button>
                     </Link>
 
-                    <Link>
-                      <button
-                        onClick={() => openReferralModal(user)}
-                        className="px-4 py-2 text-sm font-semibold rounded-lg border border-primary text-white bg-primary hover:text-white transition"
-                      >
-                        Ask For Referral
-                      </button>
-                    </Link>
+                    <button
+                      onClick={() => openReferralModal(user)}
+                      className="px-2 sm:px-4 py-2 text-sm  rounded-lg border border-primary text-white bg-primary hover:text-white transition"
+                    >
+                      Ask For Referral
+                    </button>
                   </div>
                 </div>
               </motion.div>
@@ -247,8 +244,8 @@ const Connections = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <div className="bg-slate-900 p-6 rounded-2xl w-full max-w-md">
-              <h3 className="text-xl font-bold mb-4 text-center">
+            <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-700  shadow-xl p-6 rounded-2xl w-full max-w-md">
+              <h3 className="text-xl font-bold mb-4 text-center text-gray-300">
                 Ask {selectedUser?.firstName} for Referral
               </h3>
 

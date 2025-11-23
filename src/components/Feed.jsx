@@ -251,9 +251,9 @@ const Feed = () => {
               <motion.div
                 key={u._id}
                 ref={isLast && !isSearching ? lastElementRef : null}
-                className="flex flex-col sm:flex-row items-center bg-slate-800/25 border border-gray-700 rounded-2xl p-5 w-full max-w-xl"
+                className="flex flex-row items-center gap-4 bg-slate-800/25 border border-gray-700 rounded-2xl p-4 w-full max-w-xl"
               >
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gray-600 flex-shrink-0">
+                <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gray-600 flex-shrink-0">
                   <motion.img
                     src={u.imageURL}
                     alt="Profile"
@@ -262,19 +262,20 @@ const Feed = () => {
                   />
                 </div>
 
-                <div className="sm:ml-6 mt-3 text-center sm:text-left w-full">
-                  <h3 className="text-xl font-bold text-gray-100">
+                <div className="flex-1 ml-2 sm:ml-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-100">
                     {u.firstName} {u.lastName}
                   </h3>
+
                   <p className="text-gray-400 text-sm mt-1">
                     {u.headline} {u.company && `@ ${u.company}`}
                   </p>
 
-                  <div className="mt-4 flex gap-3 justify-center sm:justify-start">
+                  <div className="mt-3 flex gap-3 justify-center sm:justify-start">
                     <button
                       disabled={u.connectionStatus === "interested"}
                       onClick={() => handleSendRequest("interested", u._id)}
-                      className={`px-4 py-2 rounded-xl ${
+                      className={`px-2 sm:px-4 py-2 rounded-lg ${
                         u.connectionStatus === "interested"
                           ? "bg-gray-500 opacity-50 cursor-not-allowed"
                           : "bg-primary"
@@ -285,7 +286,7 @@ const Feed = () => {
 
                     <button
                       onClick={() => openReferralModal(u)}
-                      className="px-4 py-2 bg-gradient-to-r from-primary to-secondary rounded-xl text-gray-100"
+                      className=" px-3 sm:px-4 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg text-gray-100"
                     >
                       Ask Referral
                     </button>
@@ -346,8 +347,8 @@ const Feed = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <div className="bg-slate-900 p-6 rounded-2xl w-full max-w-md">
-              <h3 className="text-xl font-bold mb-4 text-center">
+            <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-700  shadow-xl p-6 rounded-2xl w-full max-w-md">
+              <h3 className="text-xl font-bold mb-4 text-center text-gray-300">
                 Ask {selectedUser?.firstName} for Referral
               </h3>
 

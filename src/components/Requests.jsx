@@ -89,13 +89,13 @@ const Requests = () => {
               {requests.map((user) => (
                 <motion.div
                   key={user._id}
-                  className="flex items-center rounded-lg shadow-lg shadow-gray-950 w-160 mx-auto bg-slate-800/20 backdrop-blur-sm border-gray-700 p-4 sm:p-6"
+                  className="flex items-center w-160 mx-auto bg-slate-800/25 border  rounded-xl  border-gray-700 px-4 sm:p-3"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
                   <a href="#">
-                    <div className="w-28 h-28 sm:w-40 sm:h-40 aspect-square rounded-full overflow-hidden border-2 border-gray-500">
+                    <div className="w-28 h-28 sm:w-32 sm:h-32 aspect-square rounded-full overflow-hidden border-2 border-gray-500">
                       <motion.img
                         className="w-full h-full object-cover"
                         src={user?.fromUserId?.imageURL}
@@ -114,13 +114,13 @@ const Requests = () => {
                     <p className="mt-2 text-sm font-light text-gray-400">{user?.fromUserId?.about}</p>
 
                     <p className="mt-2 text-sm font-light text-gray-400">
-                      Expert In {user?.fromUserId?.skills?.join(", ")}
+                      Works @ {user?.fromUserId?.company}
                     </p>
 
-                    <div className="card-actions pt-4 flex flex-nowrap gap-4">
+                    <div className="card-actions pt-4 flex flex-nowrap gap-3">
                       <button
                         onClick={() => reviewRequest("accept", user._id)}
-                        className="btn bg-primary w-20 sm:w-32 text-white"
+                        className="btn bg-primary w-20 sm:w-auto text-white"
                       >
                         Accept
                       </button>

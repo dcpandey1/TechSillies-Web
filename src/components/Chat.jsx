@@ -75,7 +75,7 @@ const Chat = () => {
 
   return (
     <div className="flex justify-center mt-2 sm:mt-16 mb-16 sm:mb-1">
-      <div className="w-full max-w-md bg-slate-800/20 backdrop-blur-sm shadow-xl shadow-gray-950 rounded-2xl neo-shadow p-4 space-y-4">
+      <div className="w-full max-w-md bg-gray-800/25  shadow-xl shadow-gray-950 rounded-2xl neo-shadow p-4 space-y-4">
         {/* <!-- Chat header --> */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-4">
@@ -100,7 +100,7 @@ const Chat = () => {
         </div>
 
         {/* <!-- Chat messages area --> */}
-        <div className="h-96 overflow-y-auto neo-inset p-4 rounded-xl space-y-4 bg-gradient-to-r from-primary to-secondary ">
+        <div className="h-96 overflow-y-auto neo-inset p-4 rounded-xl space-y-4 bg-gradient-to-r from-primary   to-secondary ">
           {/* <!-- Received message --> */}
 
           {messages.map((msg, index) => {
@@ -131,7 +131,7 @@ const Chat = () => {
                     (user.user.firstName === msg.firstName ? "primary" : "secondary")
                   }
                 >
-                  {msg.text}
+                  <p className="text-white">{msg.text}</p>
                 </div>
               </div>
             );

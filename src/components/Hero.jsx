@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <>
       <section className="relative text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-blue-950 to-gray-950 opacity-70"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-blue-950 to-gray-950 opacity-20"></div>
         <div className="absolute inset-0 bg-auto bg-center"></div>
 
         <div className="container mx-auto lg:px-12 px-5 py-16 md:py-32 relative z-10 lg:h-[90vh]">

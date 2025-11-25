@@ -6,7 +6,6 @@ import { addUser } from "../utils/userSlice";
 import { BaseURL } from "../constants/data";
 import { motion } from "framer-motion";
 import logo from "../assests/latest_logo.svg";
-import mainsvg from "../assests/main.svg";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -41,7 +40,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen text-gray-900 flex justify-center m-2">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-slate-800/25  border border-gray-700 shadow-2xl shadow-gray-900/70 sm:rounded-lg flex justify-center flex-1">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-slate-800/25 backdrop-blur-sm  border border-gray-700 shadow-2xl shadow-gray-900/70 sm:rounded-lg flex justify-center flex-1">
         <motion.div
           className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"
           initial={{ opacity: 0, y: -50 }}
@@ -182,13 +181,12 @@ const SignUp = () => {
 
         <div className="flex-1 bg-gradient-to-r from-primary  to-secondary text-center hidden lg:flex rounded-r-lg">
           <div
-            className="m-12 xl:m-4 w-full bg-contain bg-center bg-no-repeat"
+            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{
-              backgroundImage: mainsvg ? `url(${mainsvg})` : "none",
+              backgroundImage:
+                "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')",
             }}
-          >
-            {/* You can add any additional content here if needed */}
-          </div>
+          ></div>
         </div>
       </div>
     </div>

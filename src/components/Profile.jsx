@@ -189,7 +189,7 @@ const Profile = () => {
                   user.user.skills.map((skill, index) => (
                     <motion.span
                       key={index}
-                      className="bg-gray-900 text-primary border border-primary/50 px-2.5 py-0.5 rounded-full text-xs font-medium shadow-md transition-colors duration-200" // Significantly reduced padding/font size
+                      className="bg-gray-900 text-secondary border border-primary/50 px-2.5 py-0.5 rounded-full text-xs font-medium shadow-md transition-colors duration-200" // Significantly reduced padding/font size
                       whileHover={{ backgroundColor: "#0f2e0e", color: "white", scale: 1.05 }}
                     >
                       {skill}
@@ -211,11 +211,11 @@ const Profile = () => {
                 {" "}
                 {/* Reduced spacing and font size */}
                 <li className="flex items-center">
-                  <MdEmail className="h-4 w-4 mr-3 text-primary" /> {/* Smaller icon size */}
+                  <MdEmail className="h-4 w-4 mr-3 text-secondary" /> {/* Smaller icon size */}
                   {user?.user?.email}
                 </li>
                 <li className="flex items-center">
-                  <MdLocationOn className="h-4 w-4 mr-3 text-primary" /> {/* Smaller icon size */}
+                  <MdLocationOn className="h-4 w-4 mr-3 text-secondary" /> {/* Smaller icon size */}
                   {user?.user?.location || "Location not specified"}
                 </li>
               </ul>

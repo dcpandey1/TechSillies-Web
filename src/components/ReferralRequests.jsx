@@ -105,7 +105,7 @@ const ReferralRequests = () => {
   return (
     <motion.div className=" min-h-screen">
       <div className="max-w-3xl mx-auto p-6 md:p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-white pb-2 border-b border-gray-700">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-white pb-2 border-b border-gray-700">
           <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary text-transparent">
             {viewType === "sent" ? "Sent Referral Requests" : "Received Referral Requests"}
           </span>
@@ -134,7 +134,7 @@ const ReferralRequests = () => {
         {filteredRequests.length === 0 ? (
           <div className="text-center mt-20 p-8 bg-gray-800/50 rounded-xl border border-gray-700">
             <h2 className="text-xl font-semibold text-gray-300">
-              No {viewType === "sent" ? "Sent" : `${activeTab} Received`} Requests Found
+              No {viewType === "sent" ? "Sent" : `${activeTab} `} Requests Found
             </h2>
             <p className="text-gray-500 text-sm mt-2">
               {viewType === "sent"
@@ -171,7 +171,7 @@ const ReferralRequests = () => {
                             {`${userDetail?.firstName} ${userDetail?.lastName}`}
                           </h3>
                           <p className="text-gray-400 text-sm flex items-center gap-1">
-                            <MdWork className="text-primary" />
+                            <MdWork className="text-secondary" />
                             {`@ ${userDetail?.company || "N/A"}`}
                           </p>
                         </div>
@@ -185,7 +185,7 @@ const ReferralRequests = () => {
                       {/* Links Group (Left/Top) */}
                       <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
                         <span className="flex items-center text-gray-400">
-                          <MdLink className="mr-1 text-primary" />
+                          <MdLink className="mr-1 text-secondary" />
                           <a
                             href={req.jobLink}
                             target="_blank"
@@ -196,7 +196,7 @@ const ReferralRequests = () => {
                           </a>
                         </span>
                         <span className="flex items-center text-gray-400">
-                          <MdLink className="mr-1 text-primary" />
+                          <MdLink className="mr-1 text-secondary" />
                           <a
                             href={req.resumeLink}
                             target="_blank"

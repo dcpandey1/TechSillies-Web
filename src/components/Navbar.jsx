@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 import { BsPeople } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
-import { MdFollowTheSigns, MdOutlineKeyboardArrowDown, MdLogout, MdAccountCircle } from "react-icons/md"; // Added icons
+import { MdFollowTheSigns, MdOutlineKeyboardArrowDown, MdLogout } from "react-icons/md"; // Added icons
 import { removeConnection } from "../utils/connectionSlice";
 import { removeFeed } from "../utils/feedSlice";
 import { motion } from "framer-motion";
@@ -167,7 +167,7 @@ const Navbar = () => {
       {user ? (
         <div className="flex items-center gap-3">
           <motion.p
-            className="hidden sm:block text-base font-bold bg-secondary bg-clip-text text-transparent drop-shadow-md"
+            className="sm:block text-base font-bold bg-secondary bg-clip-text text-transparent drop-shadow-md"
             initial={{ x: 20 }}
             animate={{ x: 0 }}
             transition={{ duration: 0.3 }}
@@ -196,9 +196,9 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-md dropdown-content bg-gray-800 border border-gray-700 rounded-xl z-[1] w-56 p-2 shadow-2xl shadow-primary/10 mt-4"
             >
-              <li className="menu-title text-gray-400 border-b border-gray-700/50 mb-1">
-                <MdAccountCircle className="text-xl text-secondary" /> {firstName}s Account
-              </li>
+              {/* <li className="menu-title text-gray-400 border-b border-gray-700/50 mb-1">
+                <img alt="User Avatar" src={imageURL} className="h-2 w-2" /> {firstName + "'s"} Account
+              </li> */}
               <li>
                 <Link to="/profile" className="justify-between text-gray-200 hover:bg-gray-700/70">
                   Profile
@@ -215,11 +215,11 @@ const Navbar = () => {
                   Requests
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/blogs" className="text-gray-200 hover:bg-gray-700/70">
                   Blogs
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/privacypolicy" className="text-gray-200 hover:bg-gray-700/70">
                   Privacy Policy

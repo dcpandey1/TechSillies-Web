@@ -9,8 +9,9 @@ export default {
         shimmer: "shimmer 2.5s infinite linear",
       },
       colors: {
-        primary: "#0f2e0e",
+        primary: "#142817",
         secondary: "#7c9e3f",
+        primaryLight: "#1428174D", // 30% opacity of primary
       },
       keyframes: {
         shimmer: {

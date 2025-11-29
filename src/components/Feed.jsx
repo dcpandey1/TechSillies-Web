@@ -281,7 +281,7 @@ const Feed = () => {
               <motion.div
                 key={u._id}
                 ref={isLast && !isSearching ? lastElementRef : null}
-                className="flex flex-row items-center gap-4 bg-gray-800/25  border border-gray-700 rounded-2xl p-4 w-full max-w-xl transition-all duration-300 hover:bg-gray-800 shadow-xl hover:shadow-primary/20"
+                className="flex flex-row items-center gap-4 bg-gray-800/25  border border-gray-700 rounded-2xl p-4 w-full max-w-xl transition-all duration-300  shadow-xl hover:shadow-primary/20"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.995 }}
               >
@@ -320,7 +320,7 @@ const Feed = () => {
 
                     <button
                       onClick={() => openReferralModal(u)}
-                      className="px-3 py-2 text-sm bg-gradient-to-r from-primary to-secondary rounded-lg text-white font-semibold hover:opacity-90 transition-opacity duration-200 shadow-md shadow-secondary/30"
+                      className="px-3 py-2 text-sm bg-gradient-to-r from-primary to-secondary rounded-lg text-white font-semibold hover:opacity-90 transition-opacity duration-200 shadow-md "
                     >
                       Ask Referral
                     </button>

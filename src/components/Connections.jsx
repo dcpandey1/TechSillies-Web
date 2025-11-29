@@ -187,7 +187,7 @@ const Connections = () => {
         {/* Header */}
         <div className="mx-auto max-w-screen-sm text-center mb-6">
           <motion.h2
-            className="mb-4 text-4xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+            className="mb-4 text-2xl sm:text-3xl tracking-tight font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -195,38 +195,30 @@ const Connections = () => {
           </motion.h2>
 
           {/* Search Bar (Premium Style) */}
-          <div className="flex justify-center px-2">
-            <div className="flex gap-2 w-full max-w-md bg-gray-800/25 backdrop-blur-sm rounded-xl p-1 border border-primary/40 shadow-xl shadow-primary/10">
-              <div className="flex-grow flex items-center">
-                <MdSearch className="text-primary text-2xl mx-2 flex-shrink-0" />
-                <input
-                  type="text"
-                  placeholder="Search by name..."
-                  className="flex-grow bg-transparent text-gray-100 placeholder-gray-400 py-2 focus:outline-none"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") handleSearch();
-                  }}
-                />
-                {searchTerm && (
-                  <button
-                    onClick={handleClearSearch}
-                    className="p-2 text-gray-400 hover:text-red-400 transition-colors duration-200"
-                  >
-                    <MdClose className="text-xl" />
-                  </button>
-                )}
-              </div>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 w-full max-w-md mx-auto">
+            <input
+              type="text"
+              placeholder="Search by name..."
+              className="flex-grow min-w-[100px] px-3 py-2 rounded-xl border border-slate-700 bg-slate-900/50 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
 
+            <button
+              onClick={handleSearch}
+              className="px-4 py-2 rounded-xl bg-primary text-gray-100 font-semibold hover:scale-105 transition-transform"
+            >
+              Search
+            </button>
+
+            {searchTerm && (
               <button
-                onClick={handleSearch}
-                type="button" // FIX 2: Ensure button type is defined
-                className="px-4 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg text-white font-semibold flex-shrink-0 hover:opacity-90 transition-opacity duration-200 shadow-md shadow-primary/30"
+                onClick={handleClearSearch}
+                className="px-4 py-2 rounded-xl bg-slate-700 text-gray-300 font-semibold hover:bg-slate-600"
               >
-                Search
+                Clear
               </button>
-            </div>
+            )}
           </div>
         </div>
 
@@ -267,7 +259,7 @@ const Connections = () => {
 
                   {user?.company && (
                     <h5 className="text-sm font-semibold text-gray-400 flex items-center gap-1 mt-1">
-                      <MdWork className="text-primary" /> Works @ {user.company}
+                      <MdWork className="text-secondary" /> Works @ {user.company}
                     </h5>
                   )}
 

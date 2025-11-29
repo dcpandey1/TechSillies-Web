@@ -7,8 +7,36 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BaseURL } from "../constants/data";
 import { motion } from "framer-motion";
-import { MdAdd, MdClose, MdCameraAlt, MdSave } from "react-icons/md"; // Added MdLoading
-import toast from "react-hot-toast"; // Using react-hot-toast directly
+import { MdAdd, MdClose, MdCameraAlt, MdSave } from "react-icons/md";
+import toast from "react-hot-toast";
+
+// FIX: Move InputField OUTSIDE of the main component
+const InputField = ({ label, value, onChange, placeholder, type = "text", required = false }) => (
+  <div className="w-full mb-3">
+    <label className="mb-1 text-gray-300 block font-semibold text-sm">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    {type === "textarea" ? (
+      <textarea
+        value={value}
+        onChange={onChange}
+        className="mt-1 p-2.5 w-full border border-gray-700 rounded-lg text-gray-100 bg-gray-800/70 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all resize-none text-sm"
+        placeholder={placeholder}
+        rows={3}
+        required={required}
+      />
+    ) : (
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        className="mt-1 p-2.5 w-full border border-gray-700 rounded-lg text-gray-100 bg-gray-800/70 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all text-sm"
+        placeholder={placeholder}
+        required={required}
+      />
+    )}
+  </div>
+);
 
 const EditProfile = () => {
   const user = useSelector((state) => state.user);
@@ -21,7 +49,7 @@ const EditProfile = () => {
   const [headline, setHeadline] = useState(user?.user?.headline || "");
   const [company, setCompany] = useState(user?.user?.company || "");
   const [about, setAbout] = useState(user?.user?.about || "");
-  const [skills, setSkills] = useState(user?.user?.skills || []); // Initialize with empty array if null
+  const [skills, setSkills] = useState(user?.user?.skills || []);
 
   const [skillInput, setSkillInput] = useState("");
   const [image, setImage] = useState(null);
@@ -46,19 +74,15 @@ const EditProfile = () => {
   }, [user, navigate]);
 
   // --- SKILL MANAGEMENT ---
-
   const addSkill = useCallback(
     (e) => {
       e.preventDefault();
-
-      // Use semi-colon or comma as separator
       const newSkills = skillInput
         .split(/[,;]/)
         .map((skill) => skill.trim())
-        .filter((skill) => skill && skill.length < 30 && !skills.includes(skill)); // Added max length check
+        .filter((skill) => skill && skill.length < 30 && !skills.includes(skill));
 
       if (newSkills.length > 0) {
-        // Ensure we don't exceed a reasonable number of skills
         if (skills.length + newSkills.length > 25) {
           setError("Maximum 25 skills allowed.");
           return;
@@ -76,7 +100,6 @@ const EditProfile = () => {
   };
 
   // --- IMAGE UPLOAD ---
-
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -91,13 +114,12 @@ const EditProfile = () => {
       setError("");
 
       const options = {
-        maxSizeMB: 1, // Reduced to 1MB for better performance
+        maxSizeMB: 1,
         maxWidthOrHeight: 800,
         useWebWorker: true,
       };
 
       const compressedFile = await imageCompression(file, options);
-
       setImage(compressedFile);
 
       if (imagePreview && imagePreview.startsWith("blob:")) {
@@ -114,7 +136,6 @@ const EditProfile = () => {
   };
 
   // --- PROFILE SUBMISSION ---
-
   const editProfile = async (e) => {
     e.preventDefault();
     if (loading) return;
@@ -162,68 +183,22 @@ const EditProfile = () => {
     }
   };
 
-  // --- UI RENDER ---
-
-  const InputField = ({ label, value, onChange, placeholder, type = "text", required = false }) => (
-    <div className="w-full mb-3">
-      {" "}
-      {/* Reduced margin bottom */}
-      <label className="mb-1 text-gray-300 block font-semibold text-sm">
-        {" "}
-        {/* Reduced margin bottom */}
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      {type === "textarea" ? (
-        <textarea
-          value={value}
-          onChange={onChange}
-          // Reduced padding for compact look
-          className="mt-1 p-2.5 w-full border border-gray-700 rounded-lg text-gray-100 bg-gray-800/70 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all resize-none text-sm"
-          placeholder={placeholder}
-          rows={3}
-          required={required}
-        />
-      ) : (
-        <input
-          type={type}
-          value={value}
-          onChange={onChange}
-          // Reduced padding for compact look
-          className="mt-1 p-2.5 w-full border border-gray-700 rounded-lg text-gray-100 bg-gray-800/70 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all text-sm"
-          placeholder={placeholder}
-          required={required}
-        />
-      )}
-    </div>
-  );
-
   return (
-    <section className="py-6 px-4  min-h-screen">
-      {" "}
-      {/* Reduced overall padding */}
+    <section className="py-6 px-4 min-h-screen">
       <motion.div
-        // Reduced max-width for a medium, focused card
         className="lg:w-[60%] md:w-[75%] w-full mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <div className="w-full mx-auto bg-gray-800/25 border border-gray-700 shadow-2xl rounded-2xl shadow-black/50 p-6 md:p-8">
-          {" "}
-          {/* Reduced padding */}
-          <h2 className="text-2xl font-bold text-white mb-5 border-b border-gray-700 pb-3">
-            {" "}
-            {/* Reduced font size and margin */}
+          <h2 className="text-xl font-bold text-white mb-5 border-b border-gray-700 pb-3">
             Edit Your Profile
           </h2>
           <form onSubmit={editProfile}>
             {/* Profile Image Upload */}
             <div className="flex flex-col items-center mb-6">
-              {" "}
-              {/* Reduced margin bottom */}
               <div className="w-28 h-28 rounded-full border-4 border-primary/70 shadow-xl relative overflow-hidden flex items-center justify-center bg-gray-700">
-                {" "}
-                {/* Smaller avatar size */}
                 <img
                   src={imagePreview || "https://via.placeholder.com/150"}
                   alt="Profile Preview"
@@ -245,7 +220,7 @@ const EditProfile = () => {
                   <MdCameraAlt className="text-white text-3xl" />
                 </label>
               </div>
-              <p className="mt-2 text-gray-400 text-xs">Click photo to change</p> {/* Smaller helper text */}
+              <p className="mt-2 text-gray-400 text-xs">Click photo to change</p>
             </div>
 
             {/* Error Message */}
@@ -253,13 +228,13 @@ const EditProfile = () => {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-center p-2 mb-4 rounded-lg bg-red-900/40 text-red-400 border border-red-500/50 text-sm" // Reduced padding and font size
+                className="text-center p-2 mb-4 rounded-lg bg-red-900/40 text-red-400 border border-red-500/50 text-sm"
               >
                 {error}
               </motion.div>
             )}
 
-            {/* General Info (First, Last, Headline, Company) */}
+            {/* General Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
               <InputField
                 label="First Name"
@@ -301,22 +276,19 @@ const EditProfile = () => {
 
             {/* Skills Input */}
             <div className="w-full mb-4 border p-3 rounded-lg border-gray-700 bg-gray-800/50">
-              {" "}
-              {/* Reduced padding */}
-              <label className="mb-1 text-gray-300 block font-semibold text-sm">Skills (Max 25)</label>{" "}
-              {/* Reduced margin */}
+              <label className="mb-1 text-gray-300 block font-semibold text-sm">Skills (Max 25)</label>
               <div className="flex items-center gap-2 mt-1">
                 <input
                   type="text"
                   value={skillInput}
                   onChange={(e) => setSkillInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && addSkill(e)}
-                  className="p-2.5 w-full border border-gray-700 rounded-lg text-gray-100 bg-gray-900 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-sm" // Reduced padding and font size
+                  className="p-2.5 w-full border border-gray-700 rounded-lg text-gray-100 bg-gray-900 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-sm"
                   placeholder="Enter skill (e.g., React, Python) or comma-separated list"
                 />
                 <motion.button
                   type="button"
-                  className="flex items-center justify-center bg-secondary hover:bg-secondary/80 text-white p-2.5 rounded-lg flex-shrink-0 shadow-md transition-colors duration-200" // Reduced padding
+                  className="flex items-center justify-center bg-secondary hover:bg-secondary/80 text-white p-2.5 rounded-lg flex-shrink-0 shadow-md transition-colors duration-200"
                   onClick={addSkill}
                   disabled={!skillInput.trim()}
                   whileHover={{ scale: 1.05 }}
@@ -333,7 +305,7 @@ const EditProfile = () => {
               {skills.map((skill, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center bg-primary/70 text-white px-2.5 py-1 rounded-full text-xs font-medium border border-primary transition-colors duration-200" // Reduced padding and font size
+                  className="flex items-center bg-primary/70 text-white px-2.5 py-1 rounded-full text-xs font-medium border border-primary transition-colors duration-200"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                 >
@@ -370,7 +342,6 @@ const EditProfile = () => {
           </form>
         </div>
       </motion.div>
-      {/* react-hot-toast manages toast presentation outside this component */}
     </section>
   );
 };

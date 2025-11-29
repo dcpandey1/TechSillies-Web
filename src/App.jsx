@@ -14,6 +14,7 @@ import Article from "./components/Article";
 import Hero from "./components/Hero";
 import ReferralRequests from "./components/ReferralRequests";
 import { Toaster } from "react-hot-toast";
+import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/editProfile" element={<EditProfile />} />
             <Route path="/requests" element={<Requests />} />
             <Route path="/referrals" element={<ReferralRequests />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>
